@@ -1,5 +1,5 @@
 import { useTodos } from "@/api/hooks/useTodo";
-import { Input, Button, List } from "antd";
+import { Button, List } from "antd";
 import type { Todo } from "@/api/graphql/generated/hooks";
 import { PLACEHOLDERS } from "@/shared/constants/placeholders";
 import { BUTTONS_LABELS } from "@/shared/constants/buttons";
@@ -13,11 +13,10 @@ const TodoList = () => {
     <S.Wrapper>
       <S.Header>Todo</S.Header>
       <S.InputGroup>
-        <Input
-          value={state.todoTitle}
-          size="large"
-          placeholder={PLACEHOLDERS.todoTitle}
-          onChange={(e) => actions.handleInputChange(e.target.value)}
+        <S.StyledInput 
+          value={state.todoTitle} 
+          placeholder={PLACEHOLDERS.todoTitle} 
+          onChange={(e) => actions.handleInputChange(e.target.value)} 
         />
         <S.AddButton
           disabled={!state.todoTitle.length}

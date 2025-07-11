@@ -1,4 +1,4 @@
-import { List, Checkbox, Button } from "antd";
+import { List, Button } from "antd";
 import { DeleteOutlined } from "@ant-design/icons";
 import * as S from "./Todo.styles";
 import type { Todo } from "@/api/graphql/generated/hooks";
@@ -10,18 +10,22 @@ interface TodoItemProps {
 }
 const TodoItem = ({ todo, actions }: TodoItemProps) => {
   return (
-    <List.Item>
+    <S.CustomLIstItem>
       <S.ListItemWrapper>
-        <Checkbox checked={todo.completed || false} onClick={() => actions.updateTodo(todo.id || '')} />
+      <S.CustomCheckbox
+        checked={todo.completed || false}
+        onClick={() => actions.updateTodo(todo.id || '')}
+    />
         <S.TodoText $completed={todo.completed || false}>{todo.title}</S.TodoText>
         <Button
           type="text"
           danger
+          size="large"
           icon={<DeleteOutlined />}
           onClick={() => actions.deleteTodo(todo.id || "")}
         />
       </S.ListItemWrapper>
-    </List.Item>
+    </S.CustomLIstItem>
   );
 };
 
