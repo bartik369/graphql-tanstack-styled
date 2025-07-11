@@ -17,7 +17,7 @@ const TodoList = () => {
           value={state.todoTitle}
           size="large"
           placeholder={PLACEHOLDERS.todoTitle}
-          onChange={(e) => setters.setTodoTitle(e.target.value)}
+          onChange={(e) => actions.handleInputChange(e.target.value)}
         />
         <S.AddButton
           disabled={!state.todoTitle.length}
@@ -32,9 +32,8 @@ const TodoList = () => {
           .map((todo) => (
             <TodoItem
               key={todo.id}
+              actions={actions}
               todo={todo}
-              toggle={actions.updateTodo}
-              remove={actions.deleteTodo}
             />
           ))}
       </List>

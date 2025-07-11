@@ -1,4 +1,4 @@
-import { useCallback, useMemo, useState } from "react";
+import { useCallback, useMemo, useReducer } from "react";
 import { v4 as uuid } from "uuid";
 import {
   useCreateTodoMutation,
@@ -9,28 +9,25 @@ import {
 import { queryClient } from "@/lib/queryClient";
 import { toast } from "react-toastify";
 import type { GetTodosQuery, Todo } from "../graphql/generated/graphql";
+import { initialTodoState, todoReducer } from "@/features/todo/model/TodoReducer";
+import { TodoActionTypes } from "@/features/todo/model/TodoTypes";
 
 export function useTodos() {
-  const [mutationError, setMutationError] = useState<string | null>(null);
-  const [todoTitle, setTodoTitle] = useState("");
-  const [activeTodo, setActiveTodo] = useState("");
-  const [activeButton, setActiveButton] = useState<"all" | "completed">("all");
-  const [page, setPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
+  const [state, dispatch] = useReducer(todoReducer ,initialTodoState)
   const {
     data,
     isLoading,
     error: fetchError,
   } = useGetTodosQuery({
     options: {
-      paginate: { page, limit: pageSize },
+      paginate: { page: state.page, limit: state.pageSize },
     },
   });
-  const dataKey = useMemo(() => ["GetTodos", { options: { paginate: { page: 1, limit: pageSize } } }], []);
+  const dataKey = useMemo(() => ["GetTodos", { options: { paginate: { page: 1, limit: state.pageSize } } }], []);
   
   const createTodoMutation = useCreateTodoMutation({
     onMutate: async ({ input }) => {
-      setMutationError(null);
+      dispatch({ type: TodoActionTypes.RESET_ERROR });
       await queryClient.cancelQueries({ queryKey: dataKey });
       const previousData = queryClient.getQueryData<GetTodosQuery>([
         dataKey,
@@ -50,7 +47,10 @@ export function useTodos() {
       return { previousTodo };
     },
     onError: (err, _variables, context) => {
-      setMutationError((err as Error).message);
+      dispatch({
+        type: TodoActionTypes.SET_ERROR,
+        payload: (err as Error).message
+      });
       toast((err as Error).message);
 
       if (context?.previousTodo) {
@@ -69,7 +69,7 @@ export function useTodos() {
 
   const updateTodoMutation = useUpdateTodoMutation({
     onMutate: async ({ id }) => {
-      setMutationError(null);
+      dispatch({ type: TodoActionTypes.RESET_ERROR });
 
       await queryClient.cancelQueries({ queryKey: dataKey });
 
@@ -93,7 +93,10 @@ export function useTodos() {
     },
 
     onError: async (err, _variables, context) => {
-      setMutationError((err as Error).message);
+      dispatch({
+        type: TodoActionTypes.SET_ERROR,
+        payload: (err as Error).message
+      });
       toast.error("Something went wrong");
       if (context?.previousTodos) {
         queryClient.setQueryData(dataKey, {
@@ -111,7 +114,7 @@ export function useTodos() {
 
   const deleteMutation = useDeleteTodoMutation({
     onMutate: async ({ id }) => {
-      setMutationError(null);
+      dispatch({ type: TodoActionTypes.RESET_ERROR });
       await queryClient.cancelQueries({ queryKey: dataKey });
       const previousData = queryClient.getQueryData<GetTodosQuery>([
         dataKey,
@@ -130,7 +133,10 @@ export function useTodos() {
     },
     onError: (err, _variables, context) => {
       toast.error("Something went wrong");
-      setMutationError((err as Error).message);
+      dispatch({
+        type: TodoActionTypes.SET_ERROR,
+        payload: (err as Error).message
+      });
       if (context?.previousTodos) {
         queryClient.setQueryData(dataKey, {
           todos: context.previousTodos,
@@ -146,10 +152,10 @@ export function useTodos() {
   });
 
   const createTodo = useCallback(async () => {
-    if (!todoTitle) return;
-    await createTodoMutation.mutateAsync({ input: { title: todoTitle, completed: false} });
-    setTodoTitle("");
-  }, [createTodoMutation, todoTitle]);
+    if (!state.todoTitle) return;
+    await createTodoMutation.mutateAsync({ input: { title: state.todoTitle, completed: false} });
+    dispatch({ type: TodoActionTypes.RESET_TODO_TITLE });
+  }, [createTodoMutation, state.todoTitle]);
 
   const updateTodo = useCallback(
     async (id: string) => {
@@ -172,38 +178,57 @@ export function useTodos() {
     },
     [deleteMutation]
   );
+  const handleInputChange = (value: string) => {
+    dispatch({
+      type: TodoActionTypes.SET_TODO_TITLE,
+      payload: value
+    });
+  }
    
   const filteredTodos = useMemo(() => {
-    if (activeButton === 'completed') {
+    if (state.activeButton === 'completed') {
       return data?.todos?.data?.filter((todo) => todo?.completed)
     }
     return data?.todos?.data
-  }, [activeButton, data?.todos?.data]);
+  }, [state.activeButton, data?.todos?.data]);
 
   return {
     state: {
       todos: filteredTodos ?? [],
-      todoTitle,
+      todoTitle: state.todoTitle,
       totalCount: data?.todos?.meta?.totalCount,
-      page,
-      pageSize,
-      activeButton,
-      activeTodo,
+      page: state.page,
+      pageSize: state.pageSize,
+      activeButton: state.activeButton,
+      activeTodo: state.activeTodo,
+      mutationError: state.mutationError,
       isLoading,
       fetchError,
-      mutationError,
     },
     actions: {
       createTodo,
       updateTodo,
       deleteTodo,
+      handleInputChange,
     },
+    dispatch,
     setters: {
-      setTodoTitle,
-      setActiveTodo,
-      setActiveButton,
-      setPage,
-      setPageSize,
+      setActiveTodo: (todo: string) => dispatch({ 
+        type: TodoActionTypes.SET_ACTIVE_TODO,
+        payload: todo,
+      }),
+      setActiveButton: (button: string) => dispatch({
+        type: TodoActionTypes.SET_ACTIVE_BUTTON,
+        payload: button,
+      }),
+      setPage: (page: number) => dispatch({
+        type: TodoActionTypes.SET_PAGE,
+        payload: page,
+      }),
+      setPageSize: (pageSize: number) => dispatch({
+        type: TodoActionTypes.SET_PAGESIZE,
+        payload: pageSize,
+      }),
     },
   };
 }
