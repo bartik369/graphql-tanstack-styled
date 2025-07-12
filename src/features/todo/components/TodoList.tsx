@@ -1,23 +1,26 @@
-import { useTodos } from "@/api/hooks/useTodo";
-import { Button, List } from "antd";
-import type { Todo } from "@/api/graphql/generated/hooks";
-import { PLACEHOLDERS } from "@/shared/constants/placeholders";
-import { BUTTONS_LABELS } from "@/shared/constants/buttons";
+import { List } from "antd";
 import TodoItem from "./TodoItem";
 import Pagination from "@/components/ui/pagination/Pagination";
+import { useTodos } from "@/api/hooks/useTodo";
+import type { Todo } from "@/api/graphql/generated/hooks";
+import { STATUS } from "../types/todo";
+import { PLACEHOLDERS } from "@/shared/constants/placeholders";
+import { BUTTONS_LABELS } from "@/shared/constants/buttons";
 import { TITLES } from "@/shared/constants/titles";
+import { PAGE_SIZE_OPTIONS } from "@/shared/constants/pagination";
 import * as S from "./Todo.styles";
 
 const TodoList = () => {
   const { state, actions, setters } = useTodos();
   return (
     <S.Wrapper>
+      <S.StyledToastContainer position="top-center" />
       <S.Header>{TITLES.todo}</S.Header>
       <S.InputGroup>
-        <S.StyledInput 
-          value={state.todoTitle} 
-          placeholder={PLACEHOLDERS.todoTitle} 
-          onChange={(e) => actions.handleInputChange(e.target.value)} 
+        <S.StyledInput
+          value={state.todoTitle}
+          placeholder={PLACEHOLDERS.todoTitle}
+          onChange={(e) => actions.handleInputChange(e.target.value)}
         />
         <S.AddButton
           disabled={!state.todoTitle.length}
@@ -30,35 +33,31 @@ const TodoList = () => {
         {state?.todos
           ?.filter((todo): todo is Todo => todo != undefined)
           .map((todo) => (
-            <TodoItem
-              key={todo.id}
-              actions={actions}
-              todo={todo}
-            />
+            <TodoItem key={todo.id} actions={actions} todo={todo} />
           ))}
       </List>
       <S.ButtonsGroup>
-        <Button
-          type={state.activeButton === "all" ? "primary" : "default"}
-          onClick={() => setters.setActiveButton("all")}
+        <S.StyledButton
+          $isActive={state.activeButton === STATUS.all}
+          onClick={() => setters.setActiveButton(STATUS.all)}
         >
           {BUTTONS_LABELS.all}
-        </Button>
-        <Button
-          type={state.activeButton === "completed" ? "primary" : "default"}
-          onClick={() => setters.setActiveButton("completed")}
+        </S.StyledButton>
+        <S.StyledButton
+          $isActive={state.activeButton === STATUS.completed}
+          onClick={() => setters.setActiveButton(STATUS.completed)}
         >
           {BUTTONS_LABELS.done}
-        </Button>
+        </S.StyledButton>
       </S.ButtonsGroup>
       <Pagination
         pageSize={state.pageSize}
         current={state.page}
         total={state.totalCount ?? 0}
-        pageSizeOptions={['5', '10', '15', '20', '50']}
-        onChange={(page, pageSize) =>  {
-          setters.setPage(page)
-          setters.setPageSize(pageSize)
+        pageSizeOptions={PAGE_SIZE_OPTIONS}
+        onChange={(page, pageSize) => {
+          setters.setPage(page);
+          setters.setPageSize(pageSize);
         }}
       />
     </S.Wrapper>

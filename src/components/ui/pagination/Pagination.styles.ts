@@ -8,9 +8,9 @@ export const PaginationWrapper = styled.div`
 export const StyledPagination = styled(Pagination)`
   .ant-pagination-item {
     border: none;
+    border-radius: 4px;
     background-color: rgb(34, 40, 53);
     transition: all 0.3s;
-    border-radius: 4px;
     a {
       color: rgb(121, 127, 140);
       &:hover {
@@ -19,14 +19,13 @@ export const StyledPagination = styled(Pagination)`
     }
 
     &:hover {
-      background-color: #0067ff !important;
       color: #ffffff !important;
+      background-color: #0067ff !important;
     }
   }
-
   .ant-pagination-item-active {
-    background-color: #0067ff;
     font-weight: bold;
+    background-color: #0067ff;
     a {
       color: #ffffff;
     }
@@ -52,7 +51,7 @@ export const StyledPagination = styled(Pagination)`
     opacity: 0.5;
     cursor: not-allowed;
     &:hover {
-        background-color: rgb(41, 48, 65);
+      background-color: rgb(41, 48, 65);
     }
   }
 
@@ -61,7 +60,7 @@ export const StyledPagination = styled(Pagination)`
   }
   .ant-pagination-item-container {
     .ant-pagination-item-ellipsis {
-        color: rgb(121, 127, 140) !important;
+      color: rgb(121, 127, 140) !important;
     }
   }
 `;

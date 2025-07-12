@@ -1,3 +1,4 @@
+import type { Status } from "../types/todo";
 
 export interface TodoState {
     mutationError: string | null;
@@ -25,6 +26,6 @@ export type TodoAction =
 | { type: TodoActionTypes.SET_TODO_TITLE, payload: string }
 | { type: TodoActionTypes.RESET_TODO_TITLE }
 | { type: TodoActionTypes.SET_ACTIVE_TODO, payload: string }
-| { type: TodoActionTypes.SET_ACTIVE_BUTTON, payload: string }
+| { type: TodoActionTypes.SET_ACTIVE_BUTTON, payload: Status }
 | { type: TodoActionTypes.SET_PAGE, payload: number }
 | { type: TodoActionTypes.SET_PAGESIZE, payload: number }

@@ -11,15 +11,17 @@ const TodoItem = ({ todo, actions }: TodoItemProps) => {
   return (
     <S.CustomLIstItem>
       <S.ListItemWrapper>
-      <S.CustomCheckbox
-        checked={todo.completed || false}
-        onClick={() => actions.updateTodo(todo.id || '')}
-    />
-        <S.TodoText $completed={todo.completed || false}>{todo.title}</S.TodoText>
-        <S.CustomDeleteButton 
-          type="text" 
-          icon={<DeleteOutlined />} 
-          onClick={() => actions.deleteTodo(todo.id || "")} 
+        <S.CustomCheckbox
+          checked={todo.completed || false}
+          onClick={() => actions.updateTodo(todo.id || "")}
+        />
+        <S.TodoText $completed={todo.completed || false}>
+          {todo.title}
+        </S.TodoText>
+        <S.CustomDeleteButton
+          type="text"
+          icon={<DeleteOutlined />}
+          onClick={() => actions.deleteTodo(todo.id || "")}
         />
       </S.ListItemWrapper>
     </S.CustomLIstItem>

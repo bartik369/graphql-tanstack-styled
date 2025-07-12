@@ -11,6 +11,9 @@ import { toast } from "react-toastify";
 import type { GetTodosQuery, Todo } from "../graphql/generated/graphql";
 import { initialTodoState, todoReducer } from "@/features/todo/model/TodoReducer";
 import { TodoActionTypes } from "@/features/todo/model/TodoTypes";
+import { STATUS, type Status } from "@/features/todo/types/todo";
+import { TOAST_MESSAGES } from "@/features/todo/constants/toastMessages";
+import { getErrorMessage } from "@/shared/utils/getErrorMessage";
 
 export function useTodos() {
   const [state, dispatch] = useReducer(todoReducer ,initialTodoState)
@@ -60,7 +63,7 @@ export function useTodos() {
       }
     },
     onSuccess: () => {
-      toast.success("Задача добавлена!");
+      toast.success(TOAST_MESSAGES.added);
     },
     // onSettled: () => {
     //   queryClient.invalidateQueries({ queryKey: dataKey });
@@ -97,7 +100,7 @@ export function useTodos() {
         type: TodoActionTypes.SET_ERROR,
         payload: (err as Error).message
       });
-      toast.error("Something went wrong");
+      toast.error(getErrorMessage(err));
       if (context?.previousTodos) {
         queryClient.setQueryData(dataKey, {
           todos: context.previousTodos,
@@ -105,7 +108,7 @@ export function useTodos() {
       }
     },
     onSuccess: async () => {
-      toast.success("Todo updated");
+      toast.success(TOAST_MESSAGES.updated);
     },
     // onSettled: async () => {
     //   queryClient.invalidateQueries({ queryKey: dataKey });
@@ -132,7 +135,7 @@ export function useTodos() {
       return { previousTodos: previousData?.todos ?? [] };
     },
     onError: (err, _variables, context) => {
-      toast.error("Something went wrong");
+      toast.error(getErrorMessage(err));
       dispatch({
         type: TodoActionTypes.SET_ERROR,
         payload: (err as Error).message
@@ -144,7 +147,7 @@ export function useTodos() {
       }
     },
     onSuccess: () => {
-      toast.success("Todo deleted");
+      toast.success(TOAST_MESSAGES.deleted);
     },
     // onSettled: () => {
     //   queryClient.invalidateQueries({ queryKey: dataKey });
@@ -186,7 +189,7 @@ export function useTodos() {
   }
    
   const filteredTodos = useMemo(() => {
-    if (state.activeButton === 'completed') {
+    if (state.activeButton === STATUS.completed) {
       return data?.todos?.data?.filter((todo) => todo?.completed)
     }
     return data?.todos?.data
@@ -217,7 +220,7 @@ export function useTodos() {
         type: TodoActionTypes.SET_ACTIVE_TODO,
         payload: todo,
       }),
-      setActiveButton: (button: string) => dispatch({
+      setActiveButton: (button: Status) => dispatch({
         type: TodoActionTypes.SET_ACTIVE_BUTTON,
         payload: button,
       }),
