@@ -4,14 +4,15 @@ import type { Todo } from "@/api/graphql/generated/hooks";
 import { PLACEHOLDERS } from "@/shared/constants/placeholders";
 import { BUTTONS_LABELS } from "@/shared/constants/buttons";
 import TodoItem from "./TodoItem";
-import * as S from "./Todo.styles";
 import Pagination from "@/components/ui/pagination/Pagination";
+import { TITLES } from "@/shared/constants/titles";
+import * as S from "./Todo.styles";
 
 const TodoList = () => {
   const { state, actions, setters } = useTodos();
   return (
     <S.Wrapper>
-      <S.Header>Todo</S.Header>
+      <S.Header>{TITLES.todo}</S.Header>
       <S.InputGroup>
         <S.StyledInput 
           value={state.todoTitle} 
