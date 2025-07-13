@@ -1,5 +1,6 @@
 import { Button, Checkbox, Input, List } from "antd";
-import { ToastContainer } from 'react-toastify';
+import { InboxOutlined } from "@ant-design/icons";
+import { ToastContainer } from "react-toastify";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -7,6 +8,7 @@ export const Wrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   width: 100%;
+  height: fit-content;
   max-width: 450px;
   min-width: 300px;
   margin: 40px 20px;
@@ -194,7 +196,7 @@ export const StyledToastContainer = styled(ToastContainer)`
   }
 
   .Toastify__toast--success {
-    background-color:rgb(34, 40, 54) !important;
+    background-color: rgb(34, 40, 54) !important;
   }
 
   .Toastify__toast--error {
@@ -207,4 +209,16 @@ export const StyledToastContainer = styled(ToastContainer)`
   .Toastify__close-button--light {
     color: #ffffff;
   }
+`;
+export const WrapperInfo = styled.div`
+  display: flex;
+  justify-content: center;
+  .ant-empty-description {
+    color: rgb(41, 49, 65);
+    font-size: 14px;
+  }
+`;
+export const StyledIcon = styled(InboxOutlined)`
+  font-size: 80px;
+  color: #293141;
 `;

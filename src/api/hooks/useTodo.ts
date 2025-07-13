@@ -199,7 +199,8 @@ export function useTodos() {
     state: {
       todos: filteredTodos ?? [],
       todoTitle: state.todoTitle,
-      totalCount: data?.todos?.meta?.totalCount,
+      totalCount: filteredTodos?.length,
+      // totalCount: data?.todos?.meta?.totalCount,
       page: state.page,
       pageSize: state.pageSize,
       activeButton: state.activeButton,

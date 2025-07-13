@@ -8,7 +8,7 @@ query GetTodos($options: PageQueryOptions) {
         id
         name
       }
-    }
+    },
     meta {
       totalCount
     }

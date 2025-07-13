@@ -14,16 +14,16 @@ import { TypedDocumentNode as DocumentNode } from '@graphql-typed-document-node/
  * Learn more about it here: https://the-guild.dev/graphql/codegen/plugins/presets/preset-client#reducing-bundle-size
  */
 type Documents = {
-    "mutation AddTodo($title: String!) {\n  addTodo(title: $title) {\n    id\n    title\n    completed\n  }\n}": typeof types.AddTodoDocument,
-    "mutation DeleteTodo($id: ID!) {\n  deleteTodo(id: $id) {\n    id\n  }\n}": typeof types.DeleteTodoDocument,
-    "mutation ToggleTodo($id: ID!) {\n  toggleTodo(id: $id) {\n    id\n    completed\n  }\n}": typeof types.ToggleTodoDocument,
-    "query GetTodos {\n  todos {\n    id\n    title\n    completed\n  }\n}": typeof types.GetTodosDocument,
+    "mutation CreateTodo($input: CreateTodoInput!) {\n  createTodo(input: $input) {\n    id\n    title\n    completed\n  }\n}": typeof types.CreateTodoDocument,
+    "mutation DeleteTodo($id: ID!) {\n  deleteTodo(id: $id)\n}": typeof types.DeleteTodoDocument,
+    "mutation UpdateTodo($id: ID!, $input: UpdateTodoInput!) {\n  updateTodo(id: $id, input: $input) {\n    id\n    title\n    completed\n  }\n}": typeof types.UpdateTodoDocument,
+    "query GetTodos($options: PageQueryOptions) {\n  todos(options: $options) {\n    data {\n      id\n      title\n      completed\n      user {\n        id\n        name\n      }\n    }\n    meta {\n      totalCount\n    }\n  }\n}": typeof types.GetTodosDocument,
 };
 const documents: Documents = {
-    "mutation AddTodo($title: String!) {\n  addTodo(title: $title) {\n    id\n    title\n    completed\n  }\n}": types.AddTodoDocument,
-    "mutation DeleteTodo($id: ID!) {\n  deleteTodo(id: $id) {\n    id\n  }\n}": types.DeleteTodoDocument,
-    "mutation ToggleTodo($id: ID!) {\n  toggleTodo(id: $id) {\n    id\n    completed\n  }\n}": types.ToggleTodoDocument,
-    "query GetTodos {\n  todos {\n    id\n    title\n    completed\n  }\n}": types.GetTodosDocument,
+    "mutation CreateTodo($input: CreateTodoInput!) {\n  createTodo(input: $input) {\n    id\n    title\n    completed\n  }\n}": types.CreateTodoDocument,
+    "mutation DeleteTodo($id: ID!) {\n  deleteTodo(id: $id)\n}": types.DeleteTodoDocument,
+    "mutation UpdateTodo($id: ID!, $input: UpdateTodoInput!) {\n  updateTodo(id: $id, input: $input) {\n    id\n    title\n    completed\n  }\n}": types.UpdateTodoDocument,
+    "query GetTodos($options: PageQueryOptions) {\n  todos(options: $options) {\n    data {\n      id\n      title\n      completed\n      user {\n        id\n        name\n      }\n    }\n    meta {\n      totalCount\n    }\n  }\n}": types.GetTodosDocument,
 };
 
 /**
@@ -43,19 +43,19 @@ export function graphql(source: string): unknown;
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation AddTodo($title: String!) {\n  addTodo(title: $title) {\n    id\n    title\n    completed\n  }\n}"): (typeof documents)["mutation AddTodo($title: String!) {\n  addTodo(title: $title) {\n    id\n    title\n    completed\n  }\n}"];
+export function graphql(source: "mutation CreateTodo($input: CreateTodoInput!) {\n  createTodo(input: $input) {\n    id\n    title\n    completed\n  }\n}"): (typeof documents)["mutation CreateTodo($input: CreateTodoInput!) {\n  createTodo(input: $input) {\n    id\n    title\n    completed\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation DeleteTodo($id: ID!) {\n  deleteTodo(id: $id) {\n    id\n  }\n}"): (typeof documents)["mutation DeleteTodo($id: ID!) {\n  deleteTodo(id: $id) {\n    id\n  }\n}"];
+export function graphql(source: "mutation DeleteTodo($id: ID!) {\n  deleteTodo(id: $id)\n}"): (typeof documents)["mutation DeleteTodo($id: ID!) {\n  deleteTodo(id: $id)\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "mutation ToggleTodo($id: ID!) {\n  toggleTodo(id: $id) {\n    id\n    completed\n  }\n}"): (typeof documents)["mutation ToggleTodo($id: ID!) {\n  toggleTodo(id: $id) {\n    id\n    completed\n  }\n}"];
+export function graphql(source: "mutation UpdateTodo($id: ID!, $input: UpdateTodoInput!) {\n  updateTodo(id: $id, input: $input) {\n    id\n    title\n    completed\n  }\n}"): (typeof documents)["mutation UpdateTodo($id: ID!, $input: UpdateTodoInput!) {\n  updateTodo(id: $id, input: $input) {\n    id\n    title\n    completed\n  }\n}"];
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query GetTodos {\n  todos {\n    id\n    title\n    completed\n  }\n}"): (typeof documents)["query GetTodos {\n  todos {\n    id\n    title\n    completed\n  }\n}"];
+export function graphql(source: "query GetTodos($options: PageQueryOptions) {\n  todos(options: $options) {\n    data {\n      id\n      title\n      completed\n      user {\n        id\n        name\n      }\n    }\n    meta {\n      totalCount\n    }\n  }\n}"): (typeof documents)["query GetTodos($options: PageQueryOptions) {\n  todos(options: $options) {\n    data {\n      id\n      title\n      completed\n      user {\n        id\n        name\n      }\n    }\n    meta {\n      totalCount\n    }\n  }\n}"];
 
 export function graphql(source: string) {
   return (documents as any)[source] ?? {};

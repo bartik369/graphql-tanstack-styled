@@ -2,5 +2,6 @@ import styled from "styled-components"
 export const TodosWrapper = styled.div`
 display: flex;
 justify-content:center;
+min-height: 100vh;
 background-color: #1b2028;
 `

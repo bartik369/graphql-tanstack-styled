@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import type {UseMutationOptions, UseQueryOptions}  from '@tanstack/react-query';
+import  type { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 import { graphqlFetcher } from '../client/graphqlFetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
