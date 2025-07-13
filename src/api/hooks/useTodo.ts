@@ -14,7 +14,7 @@ import { TodoActionTypes } from "@/features/todo/model/TodoTypes";
 import { TOAST_MESSAGES } from "@/features/todo/constants/toastMessages";
 import { getErrorMessage } from "@/shared/utils/getErrorMessage";
 import { OperatorKindEnum } from "../graphql/generated/graphql";
-import { STATUS } from "@/features/todo/types/todo";
+import { STATUS, type Status } from "@/features/todo/types/todo";
 
 export function useTodos() {
   const [state, dispatch] = useReducer(todoReducer ,initialTodoState)
@@ -173,7 +173,7 @@ export function useTodos() {
   const updateTodo = useCallback(
     async (id: string) => {
       const currentTodos = queryClient.getQueryData<GetTodosQuery>(dataKey);
-      const todo = currentTodos?.todos?.data?.find((item: Todo) => item.id === id);
+      const todo = currentTodos?.todos?.data?.find((item) => item?.id === id);
       const completed = todo?.completed;
       await updateTodoMutation.mutateAsync({
         id,
