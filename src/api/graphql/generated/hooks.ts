@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import  type { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
+import type { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 import { graphqlFetcher } from '../client/graphqlFetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -545,7 +545,7 @@ export type GetTodosQueryVariables = Exact<{
 }>;
 
 
-export type GetTodosQuery = { __typename?: 'Query', todos?: { __typename?: 'TodosPage', data?: Array<{ __typename?: 'Todo', id?: string | null, title?: string | null, completed?: boolean | null, user?: { __typename?: 'User', id?: string | null, name?: string | null } | null } | null> | null, meta?: { __typename?: 'PageMetadata', totalCount?: number | null } | null } | null };
+export type GetTodosQuery = { __typename?: 'Query', todos?: { __typename?: 'TodosPage', data?: Array<{ __typename?: 'Todo', id?: string | null, title?: string | null, completed?: boolean | null } | null> | null, meta?: { __typename?: 'PageMetadata', totalCount?: number | null } | null } | null };
 
 
 
@@ -621,10 +621,6 @@ export const GetTodosDocument = `
       id
       title
       completed
-      user {
-        id
-        name
-      }
     }
     meta {
       totalCount

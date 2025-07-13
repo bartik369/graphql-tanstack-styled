@@ -4,11 +4,7 @@ query GetTodos($options: PageQueryOptions) {
       id
       title
       completed
-      user {
-        id
-        name
-      }
-    },
+    }
     meta {
       totalCount
     }

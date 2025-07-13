@@ -11,9 +11,10 @@ import { toast } from "react-toastify";
 import type { GetTodosQuery, Todo } from "../graphql/generated/graphql";
 import { initialTodoState, todoReducer } from "@/features/todo/model/TodoReducer";
 import { TodoActionTypes } from "@/features/todo/model/TodoTypes";
-import { STATUS, type Status } from "@/features/todo/types/todo";
 import { TOAST_MESSAGES } from "@/features/todo/constants/toastMessages";
 import { getErrorMessage } from "@/shared/utils/getErrorMessage";
+import { OperatorKindEnum } from "../graphql/generated/graphql";
+import { STATUS } from "@/features/todo/types/todo";
 
 export function useTodos() {
   const [state, dispatch] = useReducer(todoReducer ,initialTodoState)
@@ -24,6 +25,15 @@ export function useTodos() {
   } = useGetTodosQuery({
     options: {
       paginate: { page: state.page, limit: state.pageSize },
+      ...(state.activeButton === STATUS.completed && {
+        operators: [
+          {
+            field: 'completed',
+            kind: OperatorKindEnum.Like,
+            value: 'true',
+          },
+        ],
+      }),
     },
   });
   const dataKey = useMemo(() => ["GetTodos", { options: { paginate: { page: 1, limit: state.pageSize } } }], []);
@@ -43,7 +53,7 @@ export function useTodos() {
           ...oldData,
           todos: {
             ...oldData.todos,
-            data: [...(oldData?.todos?.data ?? []), { id: uuid(), ...input }],
+            data: [{ id: uuid(), ...input }, ...(oldData?.todos?.data ?? [])],
           },
         };
       });
@@ -188,19 +198,12 @@ export function useTodos() {
     });
   }
    
-  const filteredTodos = useMemo(() => {
-    if (state.activeButton === STATUS.completed) {
-      return data?.todos?.data?.filter((todo) => todo?.completed)
-    }
-    return data?.todos?.data
-  }, [state.activeButton, data?.todos?.data]);
 
   return {
     state: {
-      todos: filteredTodos ?? [],
+      todos: data?.todos?.data ?? [],
       todoTitle: state.todoTitle,
-      totalCount: filteredTodos?.length,
-      // totalCount: data?.todos?.meta?.totalCount,
+      totalCount: data?.todos?.meta?.totalCount,
       page: state.page,
       pageSize: state.pageSize,
       activeButton: state.activeButton,
