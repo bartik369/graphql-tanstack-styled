@@ -15,7 +15,7 @@ if (redirectPath) {
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
+    <BrowserRouter basename="/graphql-tanstack-styled">
     <QueryClientProvider client={queryClient}>
       <App />
     </QueryClientProvider>
