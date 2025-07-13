@@ -1,8 +1,13 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-    <meta http-equiv="refresh" content="0; URL=/graphql-tanstack-styled/" />
+    <meta charset="UTF-8" />
+    <title>SPA Redirect</title>
+    <script type="text/javascript">
+        sessionStorage.redirect = location.pathname + location.search + location.hash;
+        window.location.href = "/graphql-tanstack-styled/";
+    </script>
 </head>
 
 <body></body>
