@@ -1,6 +1,6 @@
 {
-    "name": "GraphQL-TanStack-Styled",
-    "homepage": "https://bartik369.github.com/GraphQL-TanStack-Styled/",
+    "name": "graphQL-tanStack-styled",
+    "homepage": "https://bartik369.github.com/graphQL-tanStack-styled/",
     "private": true,
     "version": "0.0.0",
     "type": "module",
