@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery} from '@tanstack/react-query';
 import type { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 import { graphqlFetcher } from '../client/graphqlFetcher';
 export type Maybe<T> = T | null;
@@ -540,6 +540,11 @@ export type UpdateTodoMutationVariables = Exact<{
 
 export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo?: { __typename?: 'Todo', id?: string | null, title?: string | null, completed?: boolean | null } | null };
 
+export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type GetPostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostsPage', data?: Array<{ __typename?: 'Post', id?: string | null, title?: string | null, body?: string | null } | null> | null } | null };
+
 export type GetTodosQueryVariables = Exact<{
   options?: InputMaybe<PageQueryOptions>;
 }>;
@@ -610,6 +615,34 @@ export const useUpdateTodoMutation = <
       {
     mutationKey: ['UpdateTodo'],
     mutationFn: (variables?: UpdateTodoMutationVariables) => graphqlFetcher<UpdateTodoMutation, UpdateTodoMutationVariables>(UpdateTodoDocument, variables)(),
+    ...options
+  }
+    )};
+
+export const GetPostsDocument = `
+    query GetPosts {
+  posts {
+    data {
+      id
+      title
+      body
+    }
+  }
+}
+    `;
+
+export const useGetPostsQuery = <
+      TData = GetPostsQuery,
+      TError = unknown
+    >(
+      variables?: GetPostsQueryVariables,
+      options?: Omit<UseQueryOptions<GetPostsQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetPostsQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetPostsQuery, TError, TData>(
+      {
+    queryKey: variables === undefined ? ['GetPosts'] : ['GetPosts', variables],
+    queryFn: graphqlFetcher<GetPostsQuery, GetPostsQueryVariables>(GetPostsDocument, variables),
     ...options
   }
     )};
