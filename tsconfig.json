@@ -6,7 +6,7 @@
   ],
   "compilerOptions": {
     "jsx": "react-jsx",
-    "baseUrl": ".",
+    "baseUrl": "graphql-tanstack-styled",
     "paths": {
       "@/*": ["src/*"]
     },
