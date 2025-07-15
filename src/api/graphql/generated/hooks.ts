@@ -1,5 +1,5 @@
-import { useMutation, useQuery} from '@tanstack/react-query';
-import type { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
+import type { UseMutationOptions, UseQueryOptions }  from '@tanstack/react-query';
 import { graphqlFetcher } from '../client/graphqlFetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -540,10 +540,12 @@ export type UpdateTodoMutationVariables = Exact<{
 
 export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo?: { __typename?: 'Todo', id?: string | null, title?: string | null, completed?: boolean | null } | null };
 
-export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetPostsQueryVariables = Exact<{
+  options?: InputMaybe<PageQueryOptions>;
+}>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostsPage', data?: Array<{ __typename?: 'Post', id?: string | null, title?: string | null, body?: string | null } | null> | null } | null };
+export type GetPostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostsPage', data?: Array<{ __typename?: 'Post', id?: string | null, title?: string | null, body?: string | null, user?: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } | null } | null> | null, meta?: { __typename?: 'PageMetadata', totalCount?: number | null } | null } | null };
 
 export type GetTodosQueryVariables = Exact<{
   options?: InputMaybe<PageQueryOptions>;
@@ -620,12 +622,20 @@ export const useUpdateTodoMutation = <
     )};
 
 export const GetPostsDocument = `
-    query GetPosts {
-  posts {
+    query GetPosts($options: PageQueryOptions) {
+  posts(options: $options) {
     data {
       id
       title
       body
+      user {
+        id
+        name
+        email
+      }
+    }
+    meta {
+      totalCount
     }
   }
 }
