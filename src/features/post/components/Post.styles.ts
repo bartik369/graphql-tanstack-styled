@@ -38,7 +38,7 @@ export const UserInfo = styled.div`
   padding: 10px 15px 0px;
 `;
 export const CustomAvatar = styled(Avatar)`
-  background-color: rgb(25, 30, 38);
+  background-color: rgb(54, 63, 78);
   .anticon {
     font-size: 14px;
   }
@@ -95,7 +95,6 @@ export const PostActions = styled.div`
 `;
 export const InteractionButtons = styled.div`
   display: flex;
-  gap: 6px;
   justify-content: flex-end;
 `;
 export const StyledButton = styled(Button)`

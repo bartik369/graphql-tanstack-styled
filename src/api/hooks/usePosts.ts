@@ -11,7 +11,7 @@ export function usePosts() {
     return { 
         state: {
             posts: data?.posts?.data,
-            totalCount: data?.posts?.meta?.totalCount
+            totalCount: data?.posts?.meta?.totalCount,
         }
      }
 }

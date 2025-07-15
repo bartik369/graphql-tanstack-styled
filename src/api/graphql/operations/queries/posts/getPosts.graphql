@@ -9,6 +9,11 @@ query GetPosts($options: PageQueryOptions) {
                 name
                 email
             }
+            comments {
+                data {
+                    id
+                }
+            }
         }
         meta {
            totalCount

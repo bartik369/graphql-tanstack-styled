@@ -545,7 +545,7 @@ export type GetPostsQueryVariables = Exact<{
 }>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostsPage', data?: Array<{ __typename?: 'Post', id?: string | null, title?: string | null, body?: string | null, user?: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } | null } | null> | null, meta?: { __typename?: 'PageMetadata', totalCount?: number | null } | null } | null };
+export type GetPostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostsPage', data?: Array<{ __typename?: 'Post', id?: string | null, title?: string | null, body?: string | null, user?: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } | null, comments?: { __typename?: 'CommentsPage', data?: Array<{ __typename?: 'Comment', id?: string | null } | null> | null } | null } | null> | null, meta?: { __typename?: 'PageMetadata', totalCount?: number | null } | null } | null };
 
 export type GetTodosQueryVariables = Exact<{
   options?: InputMaybe<PageQueryOptions>;
@@ -632,6 +632,11 @@ export const GetPostsDocument = `
         id
         name
         email
+      }
+      comments {
+        data {
+          id
+        }
       }
     }
     meta {

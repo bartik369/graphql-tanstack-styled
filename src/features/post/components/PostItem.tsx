@@ -1,5 +1,4 @@
 import type { Post } from "@/api/graphql/generated/hooks";
-import { Avatar } from "antd";
 import {
   HeartOutlined,
   UserOutlined,
@@ -30,9 +29,11 @@ const PostItem = ({ post }: PostItemProps) => {
       </S.Content>
       <S.ButtonsGroup>
         <S.InteractionButtons>
-          <S.FavoriteButton $favorite={true} type="text" icon={<HeartOutlined />} />
+          <S.FavoriteButton $favorite={true} type="text" icon={<HeartOutlined />}>
+          3
+          </S.FavoriteButton>
           <S.StyledButton type="text" icon={<MessageOutlined />}>
-            12
+            {post.comments?.data?.length}
           </S.StyledButton>
         </S.InteractionButtons>
         <S.PostActions>
