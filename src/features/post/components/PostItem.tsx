@@ -1,19 +1,19 @@
 import type { Post } from "@/api/graphql/generated/hooks";
 import {
-  HeartOutlined,
   UserOutlined,
   MessageOutlined,
-  EditOutlined,
-  DeleteOutlined,
   PictureOutlined,
 } from "@ant-design/icons";
+import type { PostActions } from "../types/post";
+import PostControls from "@/shared/components/PostControls/PostControls";
 import * as S from "./Post.styles";
 
 interface PostItemProps {
+  actions: PostActions;
   post: Post;
 }
 
-const PostItem = ({ post }: PostItemProps) => {
+const PostItem = ({ post, actions }: PostItemProps) => {
   return (
     <S.CardInfo>
       <S.Title>{post.title}</S.Title>
@@ -22,24 +22,26 @@ const PostItem = ({ post }: PostItemProps) => {
         <S.UserName>{post.user?.name}</S.UserName>
       </S.UserInfo>
       <S.Content>
-      <S.StyledImg>
-        <PictureOutlined style={{ fontSize:'35px', color:'#424856'}} />
-      </S.StyledImg>
-      <S.Text>{post.body}</S.Text>
+        <S.StyledImg>
+          <PictureOutlined style={{ fontSize: "35px", color: "#424856" }} />
+        </S.StyledImg>
+        <S.Text>{post.body}</S.Text>
       </S.Content>
       <S.ButtonsGroup>
         <S.InteractionButtons>
-          <S.FavoriteButton $favorite={true} type="text" icon={<HeartOutlined />}>
-          3
-          </S.FavoriteButton>
-          <S.StyledButton type="text" icon={<MessageOutlined />}>
+          <S.StyledButton
+            onClick={() => actions.handleRefetchComments(post.id || "")}
+            type="text"
+            icon={<MessageOutlined />}
+          >
             {post.comments?.data?.length}
           </S.StyledButton>
         </S.InteractionButtons>
-        <S.PostActions>
-          <S.StyledButton type="text" icon={<EditOutlined />} />
-          <S.DeleteButton type="text" icon={<DeleteOutlined />} />
-        </S.PostActions>
+        <PostControls
+          actions={actions}
+          post={post}
+          getId={(item) => item.id || ""}
+        />
       </S.ButtonsGroup>
     </S.CardInfo>
   );

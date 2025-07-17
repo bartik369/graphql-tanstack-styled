@@ -2,13 +2,24 @@ import { Avatar, Button, Card } from "antd";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
-  width: 100%;
-  max-width: 650px;
-  margin: 0 auto;
-  padding: 16px;
-`;
-export const GroupList = styled.div`
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  height: fit-content;
+  max-width: 600px;
+  min-width: 300px;
+  margin: 40px 20px;
+  padding: 35px;
+  border-radius: 30px;
+  background-color: #161a22;
+  box-shadow: 0 4px 4px 0 rgba(45, 51, 68, 0.2),
+    0 8px 8px 0 rgba(36, 42, 59, 0.2), 0 16px 16px 0 rgba(37, 44, 61, 0.2),
+    0 32px 32px 0 rgba(37, 44, 61, 0.2), 0 64px 64px 0 rgba(37, 44, 61, 0.2),
+    0 128px 128px 0 rgba(37, 44, 61, 0.2);
+`;
+export const GroupList = styled.div<{$isOpen: boolean}>`
+  display: ${({ $isOpen}) => ($isOpen ? 'none' : 'flex')};
   flex-direction: column;
   gap: 30px;
 `;
@@ -21,7 +32,7 @@ export const CardInfo = styled(Card)`
   overflow: hidden;
   background-color: #1e232f;
   border: none;
-  box-shadow: rgba(17, 20, 27, 0.9) 0px 20px 15px -15px;
+  box-shadow: rgba(17, 20, 27, 0.9) 0px 11px 11px -11px;
   transition: box-shadow 0.3s ease-in-out;
   &:hover {
     box-shadow: rgba(17, 20, 27, 0.8) 0px 35px 30px -30px;
@@ -41,18 +52,19 @@ export const CustomAvatar = styled(Avatar)`
   background-color: rgb(54, 63, 78);
   .anticon {
     font-size: 14px;
+    color:rgb(231, 231, 231);
   }
 `;
 
 export const Title = styled.h3`
   position: relative;
-  padding: 12px 0 10px;
+  padding: 12px 20px 10px;
   border-bottom: 1px solid rgb(38, 46, 60);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
-  color: #f7f7f7;
+  color:rgb(231, 231, 231);
   background-color: #1e232f;
   &::first-letter {
     text-transform: uppercase;
@@ -61,7 +73,7 @@ export const Title = styled.h3`
 export const UserName = styled.p`
   font-size: 15px;
   font-weight: 600;
-  color: #fdfdfd;
+  color:rgb(231, 231, 231);
 `;
 export const Content = styled.div`
   display: flex;
@@ -83,15 +95,14 @@ export const Text = styled.div`
   font-size: 12px;
   color: rgb(222, 221, 221);
   text-align: left;
+  &::first-letter {
+    text-transform: uppercase;
+  }
 `;
 export const ButtonsGroup = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 5px 15px 10px;
-`;
-export const PostActions = styled.div`
-  display: flex;
-  gap: 6px;
 `;
 export const InteractionButtons = styled.div`
   display: flex;
@@ -132,18 +143,22 @@ export const FavoriteButton = styled(Button)<{ $favorite?: boolean }>`
     font-size: 20px;
   }
 `;
-export const DeleteButton = styled(Button)`
-  color: rgb(133, 137, 148);
-  &:hover {
-    color: rgb(238, 56, 56) !important;
-  }
-  .anticon {
-    font-size: 20px;
-    &:hover {
-      color: rgb(238, 56, 56) !important;
-    }
-  }
-  svg {
-    font-size: 20px;
-  }
-`;
+
+export const CommentsList = styled(List)<{$isOpen: boolean}>`
+display: ${({ $isOpen}) => ($isOpen ? 'flex' : 'none')};
+`
+export const ButtonBack = styled(Button)`
+width: fit-content;
+border: 2px solid rgb(22, 111, 244);
+border-radius: 50%;
+background-color:rgb(0, 84, 210);
+color: #ffffff;
+&:hover {
+  background-color: #0067ff !important;
+  box-shadow: rgba(26, 59, 142, 0.19) 0px 10px 20px, rgba(26, 59, 142, 0.23) 0px 6px 6px;
+}
+.anticon {
+  font-size: 25px;
+  color: #ffffff;
+}
+`

@@ -1,0 +1,12 @@
+query GetCommentsById($postId: ID!) {
+  post(id: $postId) {
+    comments {
+      data {
+        id
+        name
+        email
+        body
+      }
+    }
+  }
+}

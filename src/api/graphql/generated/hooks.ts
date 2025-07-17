@@ -1,5 +1,5 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
-import type { UseMutationOptions, UseQueryOptions }  from '@tanstack/react-query';
+import type { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 import { graphqlFetcher } from '../client/graphqlFetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
@@ -540,6 +540,13 @@ export type UpdateTodoMutationVariables = Exact<{
 
 export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo?: { __typename?: 'Todo', id?: string | null, title?: string | null, completed?: boolean | null } | null };
 
+export type GetCommentsByIdQueryVariables = Exact<{
+  postId: Scalars['ID']['input'];
+}>;
+
+
+export type GetCommentsByIdQuery = { __typename?: 'Query', post?: { __typename?: 'Post', comments?: { __typename?: 'CommentsPage', data?: Array<{ __typename?: 'Comment', id?: string | null, name?: string | null, email?: string | null, body?: string | null } | null> | null } | null } | null };
+
 export type GetPostsQueryVariables = Exact<{
   options?: InputMaybe<PageQueryOptions>;
 }>;
@@ -617,6 +624,37 @@ export const useUpdateTodoMutation = <
       {
     mutationKey: ['UpdateTodo'],
     mutationFn: (variables?: UpdateTodoMutationVariables) => graphqlFetcher<UpdateTodoMutation, UpdateTodoMutationVariables>(UpdateTodoDocument, variables)(),
+    ...options
+  }
+    )};
+
+export const GetCommentsByIdDocument = `
+    query GetCommentsById($postId: ID!) {
+  post(id: $postId) {
+    comments {
+      data {
+        id
+        name
+        email
+        body
+      }
+    }
+  }
+}
+    `;
+
+export const useGetCommentsByIdQuery = <
+      TData = GetCommentsByIdQuery,
+      TError = unknown
+    >(
+      variables: GetCommentsByIdQueryVariables,
+      options?: Omit<UseQueryOptions<GetCommentsByIdQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetCommentsByIdQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetCommentsByIdQuery, TError, TData>(
+      {
+    queryKey: ['GetCommentsById', variables],
+    queryFn: graphqlFetcher<GetCommentsByIdQuery, GetCommentsByIdQueryVariables>(GetCommentsByIdDocument, variables),
     ...options
   }
     )};
