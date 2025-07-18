@@ -2,10 +2,12 @@ import { PostActionTypes, type PostAction, type PostState } from "./PostTypes";
 
 export const initialPostState: PostState = {
   post: {
-    id: "",
-    title: "",
-    body: "",
+    id: null,
+    title: null,
+    body: null,
   },
+  pageSize: 10,
+  page: 1,
   fetchedPostId: "",
   fetched: false,
   likes: {},
@@ -13,6 +15,11 @@ export const initialPostState: PostState = {
 
 export function postReducer(state: PostState, action: PostAction): PostState {
   switch (action.type) {
+    case PostActionTypes.SET_POST:
+      return {
+        ...state,
+        post: { ...state.post, ...action.payload }
+      }
     case PostActionTypes.SET_FETCHED_POST:
       return { ...state, fetchedPostId: action.payload };
     case PostActionTypes.SET_FETCHED:

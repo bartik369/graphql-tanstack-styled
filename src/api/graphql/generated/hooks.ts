@@ -518,6 +518,28 @@ export type UsersPage = {
   meta?: Maybe<PageMetadata>;
 };
 
+export type CreatePostMutationVariables = Exact<{
+  input: CreatePostInput;
+}>;
+
+
+export type CreatePostMutation = { __typename?: 'Mutation', createPost?: { __typename?: 'Post', id?: string | null, title?: string | null, body?: string | null } | null };
+
+export type DeletePostMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeletePostMutation = { __typename?: 'Mutation', deleteTodo?: boolean | null };
+
+export type UpdatePostMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  input: UpdatePostInput;
+}>;
+
+
+export type UpdatePostMutation = { __typename?: 'Mutation', updatePost?: { __typename?: 'Post', id?: string | null, title?: string | null, body?: string | null } | null };
+
 export type CreateTodoMutationVariables = Exact<{
   input: CreateTodoInput;
 }>;
@@ -562,6 +584,71 @@ export type GetTodosQueryVariables = Exact<{
 export type GetTodosQuery = { __typename?: 'Query', todos?: { __typename?: 'TodosPage', data?: Array<{ __typename?: 'Todo', id?: string | null, title?: string | null, completed?: boolean | null } | null> | null, meta?: { __typename?: 'PageMetadata', totalCount?: number | null } | null } | null };
 
 
+
+export const CreatePostDocument = `
+    mutation CreatePost($input: CreatePostInput!) {
+  createPost(input: $input) {
+    id
+    title
+    body
+  }
+}
+    `;
+
+export const useCreatePostMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<CreatePostMutation, TError, CreatePostMutationVariables, TContext>) => {
+    
+    return useMutation<CreatePostMutation, TError, CreatePostMutationVariables, TContext>(
+      {
+    mutationKey: ['CreatePost'],
+    mutationFn: (variables?: CreatePostMutationVariables) => graphqlFetcher<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, variables)(),
+    ...options
+  }
+    )};
+
+export const DeletePostDocument = `
+    mutation DeletePost($id: ID!) {
+  deleteTodo(id: $id)
+}
+    `;
+
+export const useDeletePostMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<DeletePostMutation, TError, DeletePostMutationVariables, TContext>) => {
+    
+    return useMutation<DeletePostMutation, TError, DeletePostMutationVariables, TContext>(
+      {
+    mutationKey: ['DeletePost'],
+    mutationFn: (variables?: DeletePostMutationVariables) => graphqlFetcher<DeletePostMutation, DeletePostMutationVariables>(DeletePostDocument, variables)(),
+    ...options
+  }
+    )};
+
+export const UpdatePostDocument = `
+    mutation UpdatePost($id: ID!, $input: UpdatePostInput!) {
+  updatePost(id: $id, input: $input) {
+    id
+    title
+    body
+  }
+}
+    `;
+
+export const useUpdatePostMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdatePostMutation, TError, UpdatePostMutationVariables, TContext>) => {
+    
+    return useMutation<UpdatePostMutation, TError, UpdatePostMutationVariables, TContext>(
+      {
+    mutationKey: ['UpdatePost'],
+    mutationFn: (variables?: UpdatePostMutationVariables) => graphqlFetcher<UpdatePostMutation, UpdatePostMutationVariables>(UpdatePostDocument, variables)(),
+    ...options
+  }
+    )};
 
 export const CreateTodoDocument = `
     mutation CreateTodo($input: CreateTodoInput!) {

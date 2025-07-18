@@ -36,15 +36,16 @@ export function useTodos() {
       }),
     },
   });
-  const dataKey = useMemo(() => ["GetTodos", { options: { paginate: { page: 1, limit: state.pageSize } } }], []);
+  const dataKey = useMemo(() => [
+    "GetTodos",
+    { options: { paginate: { page: state.page, limit: state.pageSize } } }
+  ], [state.page, state.pageSize]);
   
   const createTodoMutation = useCreateTodoMutation({
     onMutate: async ({ input }) => {
       dispatch({ type: TodoActionTypes.RESET_ERROR });
       await queryClient.cancelQueries({ queryKey: dataKey });
-      const previousData = queryClient.getQueryData<GetTodosQuery>([
-        dataKey,
-      ]);
+      const previousData = queryClient.getQueryData<GetTodosQuery>(dataKey);
       const previousTodo = previousData?.todos ?? [];
 
       queryClient.setQueryData(dataKey, (oldData?: any) => {
@@ -86,9 +87,7 @@ export function useTodos() {
 
       await queryClient.cancelQueries({ queryKey: dataKey });
 
-      const previousData = queryClient.getQueryData<GetTodosQuery>([
-        dataKey,
-      ]);
+      const previousData = queryClient.getQueryData<GetTodosQuery>(dataKey);
       queryClient.setQueryData(dataKey, (oldData?: any) => {
         if (!oldData?.todos?.data) return oldData;
         return {
@@ -129,9 +128,7 @@ export function useTodos() {
     onMutate: async ({ id }) => {
       dispatch({ type: TodoActionTypes.RESET_ERROR });
       await queryClient.cancelQueries({ queryKey: dataKey });
-      const previousData = queryClient.getQueryData<GetTodosQuery>([
-        dataKey,
-      ]);
+      const previousData = queryClient.getQueryData<GetTodosQuery>(dataKey);
       queryClient.setQueryData(dataKey, (oldData?: any) => {
         if (!oldData?.todos?.data) return oldData;
         return {

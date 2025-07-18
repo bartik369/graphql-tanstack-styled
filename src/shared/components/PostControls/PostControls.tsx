@@ -6,13 +6,17 @@ interface PostActionsProps<T> {
     actions: PostActions;
     post: T;
     getId: (item:T) => string | undefined;
+    setIsOpen?: (isOpen:boolean) => void;
 }
 
-const PostControls = <T,>({ actions, post, getId }: PostActionsProps<T>) => {
+const PostControls = <T,>({ actions, post, getId, setIsOpen }: PostActionsProps<T>) => {
     return (
         <S.PostControls>
           <S.StyledButton
-            onClick={() => actions.update(getId(post) || '')}
+            onClick={() => {
+              actions.update(getId(post) || '')
+              setIsOpen?.(true)
+            }}
             type="text"
             icon={<EditOutlined />}
           />

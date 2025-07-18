@@ -11,9 +11,10 @@ import * as S from "./Post.styles";
 interface PostItemProps {
   actions: PostActions;
   post: Post;
+  setIsOpen: (isOpen: boolean) => void
 }
 
-const PostItem = ({ post, actions }: PostItemProps) => {
+const PostItem = ({ post, actions, setIsOpen }: PostItemProps) => {
   return (
     <S.CardInfo>
       <S.Title>{post.title}</S.Title>
@@ -38,6 +39,7 @@ const PostItem = ({ post, actions }: PostItemProps) => {
           </S.StyledButton>
         </S.InteractionButtons>
         <PostControls
+          setIsOpen={setIsOpen}
           actions={actions}
           post={post}
           getId={(item) => item.id || ""}

@@ -2,10 +2,12 @@ import type { Post } from "@/api/graphql/generated/hooks";
 
 export interface PostState {
     post: {
-        id: string;
-        title: string;
-        body: string;
+        id: string | null;
+        title: string | null;
+        body: string | null;
     },
+    pageSize: number;
+    page: number;
     fetchedPostId: string;
     fetched: boolean;
     likes: Record<string, number>
