@@ -4,6 +4,7 @@ import {
   useGetCommentsByIdQuery,
   useUpdatePostMutation,
   type GetPostsQuery,
+  useDeletePostMutation,
 } from "../graphql/generated/hooks";
 import {
   initialPostState,
@@ -11,15 +12,20 @@ import {
 } from "@/features/post/model/PostReducer";
 import { PostActionTypes } from "@/features/post/model/PostTypes";
 import { queryClient } from "@/lib/queryClient";
+import type { Post } from "../graphql/generated/graphql";
+import { toast } from "react-toastify";
+import { getErrorMessage } from "@/shared/utils/getErrorMessage";
+import { TOAST_MESSAGES } from "@/features/todo/constants/toastMessages";
 
 export function usePosts() {
   const [state, dispatch] = useReducer(postReducer, initialPostState);
   const { data } = useGetPostsQuery({
     options: {
-      paginate: { page: 1, limit: 10 },
+      paginate: { page: state.page, limit: 10 },
     },
   });
 
+  
   const dataKey = useMemo(() => ["GetPosts",
       { options: { paginate: { page: state.page, limit: state.pageSize } } },
   ], [state.page, state.pageSize]);
@@ -31,7 +37,24 @@ export function usePosts() {
     );
   
     const updatePostMutation = useUpdatePostMutation({
-      onMutate: async() => {
+      onMutate: async({ id, input }) => {
+        dispatch({ type: PostActionTypes.RESET_ERROR });
+        await queryClient.cancelQueries({ queryKey: dataKey });
+        const previousData = queryClient.getQueryData<GetPostsQuery>(dataKey);
+
+        queryClient.setQueryData(dataKey, (oldData?: any) => {
+         if (!oldData?.posts?.data) return oldData;
+         return {
+          ...oldData,
+          posts: {
+            ...oldData.posts,
+            data: oldData?.posts?.data.map(( post: Post) => 
+              post.id === id ? { ...post, ...input } : post
+          )
+          }
+         }
+        });
+        return { previousPost: previousData?.posts?.data ?? [] }
       },
       onError: async() => {
 
@@ -42,7 +65,45 @@ export function usePosts() {
       onSettled: async() => {
         
       }
-    })
+    });
+
+  const deletePostMutation = useDeletePostMutation({
+    onMutate: async({ id }) => {
+      dispatch({ type: PostActionTypes.RESET_ERROR });
+      await queryClient.cancelQueries({ queryKey: dataKey });
+      const previousData = queryClient.getQueryData<GetPostsQuery>(dataKey);
+      queryClient.setQueryData(dataKey, (oldData: any) => {
+        if (!oldData?.posts?.data) return oldData;
+        return {
+          ...oldData,
+          posts: {
+            ...oldData.posts,
+            data: oldData.posts.data.filter((item: Post) => item.id !== id)
+          }
+        }
+      });
+      return { previousPosts: previousData?.posts?.data ?? []}
+    },
+    onError: async(err, _variables, context) => {
+      toast.error(getErrorMessage(err));
+      dispatch({
+        type: PostActionTypes.SET_ERROR,
+        payload: (err as Error).message
+      });
+      if (context?.previousPosts) {
+        queryClient.setQueryData(dataKey, {
+          posts: context.previousPosts,
+        })
+      }
+    },
+    onSuccess: async() => {
+      toast.success(TOAST_MESSAGES.deletedPost);
+    },
+    // onSettled: async() => {
+    //   queryClient.invalidateQueries({ queryKey: dataKey });
+    // }
+  })
+
 
   const handleRefetchComments = (id: string) => {
     dispatch({ type: PostActionTypes.SET_FETCHED, payload: true });
@@ -63,6 +124,9 @@ export function usePosts() {
   const updatePost = useCallback(async (id: string) => {
     const currentPosts = queryClient.getQueryData<GetPostsQuery>(dataKey);
     const post = currentPosts?.posts?.data?.find((item) => item?.id === id);
+    if(!post) return;
+
+    dispatch({ type: PostActionTypes.SET_IS_UPDATE, payload: true });
     dispatch({
       type: PostActionTypes.SET_POST,
       payload: {
@@ -71,40 +135,59 @@ export function usePosts() {
         body: post?.body,
       }
     });
-    // await updatePostMutation.mutateAsync({
-    //   id,
-    //   input: {
-    //     body:
-    //   }
-    // });
   }, [dataKey]);
-  console.log(state.post)
+  
+  const submitPost = async(values: Partial<Post>) => {
+    if (!state.post.id) return;
+    await updatePostMutation.mutateAsync({
+      id: state.post.id,
+      input: {
+        title: values.title,
+        body: values.body,
+      }
+    })
+  }
 
-  const deletePost = (id: string) => {
-    console.log(id);
-  };
+  const deletePost = useCallback(async(id: string) => {
+    await deletePostMutation.mutateAsync({ id })
+  }, [deletePostMutation]);
 
   const handleLike = (id: string) => {
     dispatch({ type: PostActionTypes.INCREMENT_LIKE, payload: id });
   };
+  const handleResetPost = () => {
+    dispatch({ type: PostActionTypes.RESET_POST });
+    dispatch({ type: PostActionTypes.RESET_IS_UPDATE });
+  }
 
   return {
     state: {
+      isUpdate: state.isUpdate,
       post: state.post,
       likes: state.likes,
       posts: data?.posts?.data,
       comments: commentsData?.post?.comments?.data,
       totalCount: data?.posts?.meta?.totalCount,
+      currentPage: state.page,
       fetched: state.fetched,
       isLoadingComments,
     },
     actions: {
       handleRefetchComments,
       handleInputChange,
+      handleResetPost,
       handleLike,
+      submit: submitPost,
       update: updatePost,
       delete: deletePost,
+      reset: handleResetPost,
       stepBack,
     },
+    setters: {
+      setPage:(page: number) => dispatch({
+        type: PostActionTypes.SET_PAGE,
+        payload: page,
+      })
+    }
   };
 }

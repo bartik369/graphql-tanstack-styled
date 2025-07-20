@@ -1,4 +1,4 @@
-import { Avatar, Button, Card } from "antd";
+import { Avatar, Button, Card, Modal } from "antd";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -18,8 +18,8 @@ export const Wrapper = styled.div`
     0 32px 32px 0 rgba(37, 44, 61, 0.2), 0 64px 64px 0 rgba(37, 44, 61, 0.2),
     0 128px 128px 0 rgba(37, 44, 61, 0.2);
 `;
-export const GroupList = styled.div<{$isOpen: boolean}>`
-  display: ${({ $isOpen}) => ($isOpen ? 'none' : 'flex')};
+export const GroupList = styled.div<{ $isOpen: boolean }>`
+  display: ${({ $isOpen }) => ($isOpen ? "none" : "flex")};
   flex-direction: column;
   gap: 30px;
 `;
@@ -52,7 +52,7 @@ export const CustomAvatar = styled(Avatar)`
   background-color: rgb(54, 63, 78);
   .anticon {
     font-size: 14px;
-    color:rgb(231, 231, 231);
+    color: rgb(231, 231, 231);
   }
 `;
 
@@ -64,7 +64,7 @@ export const Title = styled.h3`
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
-  color:rgb(231, 231, 231);
+  color: rgb(231, 231, 231);
   background-color: #1e232f;
   &::first-letter {
     text-transform: uppercase;
@@ -73,7 +73,7 @@ export const Title = styled.h3`
 export const UserName = styled.p`
   font-size: 15px;
   font-weight: 600;
-  color:rgb(231, 231, 231);
+  color: rgb(231, 231, 231);
 `;
 export const Content = styled.div`
   display: flex;
@@ -144,21 +144,55 @@ export const FavoriteButton = styled(Button)<{ $favorite?: boolean }>`
   }
 `;
 
-export const CommentsList = styled(List)<{$isOpen: boolean}>`
-display: ${({ $isOpen}) => ($isOpen ? 'flex' : 'none')};
-`
+export const CommentsList = styled(List)<{ $isOpen: boolean }>`
+  display: ${({ $isOpen }) => ($isOpen ? "flex" : "none")};
+`;
 export const ButtonBack = styled(Button)`
-width: fit-content;
-border: 2px solid rgb(22, 111, 244);
-border-radius: 50%;
-background-color:rgb(0, 84, 210);
-color: #ffffff;
-&:hover {
-  background-color: #0067ff !important;
-  box-shadow: rgba(26, 59, 142, 0.19) 0px 10px 20px, rgba(26, 59, 142, 0.23) 0px 6px 6px;
-}
-.anticon {
-  font-size: 25px;
+  width: fit-content;
+  border: 2px solid rgb(22, 111, 244);
+  border-radius: 50%;
+  background-color: rgb(0, 84, 210);
   color: #ffffff;
-}
-`
+  &:hover {
+    background-color: #0067ff !important;
+    box-shadow: rgba(26, 59, 142, 0.19) 0px 10px 20px,
+      rgba(26, 59, 142, 0.23) 0px 6px 6px;
+  }
+  .anticon {
+    font-size: 25px;
+    color: #ffffff;
+  }
+`;
+export const CustomModal = styled(Modal)`
+  .ant-modal-content {
+    background-color: rgb(34, 40, 54) !important;
+    box-shadow: rgba(6, 6, 8, 0.75) 0px 54px 55px, rgba(6, 6, 8, 0.58) 0px -12px 30px, rgba(6, 6, 8, 0.4) 0px 4px 6px, rgba(6, 6, 8, 0.15) 0px 12px 13px, rgba(6, 6, 8, 0.1) 0px -3px 5px;
+  }
+  .ant-modal-header {
+    background-color: transparent;
+    border-bottom: none;
+  }
+  .ant-modal-title {
+    background-color: transparent !important;
+    text-align: center;
+    color: rgb(231, 231, 231);
+  }
+  .ant-modal-close {
+    top: 16px;
+    right: 16px;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.05);
+    transition: background-color 0.3s ease;
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+    }
+  }
+
+  .ant-modal-close-x {
+    color: white; 
+    font-size: 15px;
+    line-height: 32px;
+  }
+`;

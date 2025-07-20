@@ -1,12 +1,12 @@
 import type { Comment } from "@/api/graphql/generated/graphql";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import type { PostActions } from "../types/post";
+import type { PostActionsBase } from "../types/post";
 import * as S from "./Comment.styles";
 
 interface CommentProps {
   likes: Record<string, number>;
   comment: Comment;
-  actions: PostActions;
+  actions: PostActionsBase;
 }
 const CommentItem = ({ comment, actions, likes }: CommentProps) => {
   return (

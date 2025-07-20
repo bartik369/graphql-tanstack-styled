@@ -4,12 +4,12 @@ import {
   MessageOutlined,
   PictureOutlined,
 } from "@ant-design/icons";
-import type { PostActions } from "../types/post";
+import type { PostActionsBase } from "../types/post";
 import PostControls from "@/shared/components/PostControls/PostControls";
 import * as S from "./Post.styles";
 
 interface PostItemProps {
-  actions: PostActions;
+  actions: PostActionsBase;
   post: Post;
   setIsOpen: (isOpen: boolean) => void
 }

@@ -1,26 +1,27 @@
-import PostItem from "./PostItem";
 import { Spin } from "antd";
+import PostItem from "./PostItem";
 import Pagination from "@/components/ui/pagination/Pagination";
 import CommentItem from "@/features/post/components/CommentItem";
+import DynamicForm from "@/shared/components/forms/dynamic/DynamicForm";
 import { usePosts } from "@/api/hooks/usePosts";
-import type { Post } from "@/api/graphql/generated/hooks";
+import { useModal } from "@/shared/hooks/useModal";
 import { PAGE_SIZE_OPTIONS } from "@/shared/constants/pagination";
 import { MESSAGES } from "@/shared/constants/messages";
 import { LeftOutlined } from "@ant-design/icons";
-import * as S from "./Post.styles";
-import { useModal } from "@/shared/hooks/useModal";
-import { Modal } from "antd";
-import DynamicForm from "@/shared/components/forms/dynamic/DynamicForm";
 import { TITLES } from "@/shared/constants/titles";
+import type { Post } from "@/api/graphql/generated/hooks";
 import { postFromFields } from "@/shared/components/forms/dynamic/config/formFields";
+import { StyledToastContainer } from "@/shared/styles/ToastStyles";
+import * as S from "./Post.styles";
 
 const PostList = () => {
-  const { state, actions } = usePosts();
+  const { state, actions, setters } = usePosts();
   const { isOpen, openModal, closeModal } = useModal();
   return (
     <S.Wrapper>
+       <StyledToastContainer position="top-center" />
       {isOpen ? (
-        <Modal
+        <S.CustomModal
           open={isOpen}
           onCancel={closeModal}
           footer={null}
@@ -28,10 +29,11 @@ const PostList = () => {
         >
           <DynamicForm 
             fields={postFromFields} 
-            state={state.post} 
+            state={state.post}
+            actions={actions}
             onChange={actions.handleInputChange} 
           />
-        </Modal>
+        </S.CustomModal>
       ) : null}
       <S.GroupList $isOpen={state.fetched}>
         <S.List>
@@ -48,9 +50,12 @@ const PostList = () => {
         </S.List>
         <Pagination
           pageSize={10}
-          current={1}
+          current={state.currentPage}
           total={state.totalCount ?? 0}
           pageSizeOptions={PAGE_SIZE_OPTIONS}
+          onChange={(page) => {
+            setters.setPage(page);
+          }}
         />
       </S.GroupList>
       <S.CommentsList $isOpen={state.fetched}>

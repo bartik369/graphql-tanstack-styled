@@ -11,6 +11,8 @@ export const initialPostState: PostState = {
   fetchedPostId: "",
   fetched: false,
   likes: {},
+  isUpdate: false,
+  mutationError: null,
 };
 
 export function postReducer(state: PostState, action: PostAction): PostState {
@@ -18,8 +20,21 @@ export function postReducer(state: PostState, action: PostAction): PostState {
     case PostActionTypes.SET_POST:
       return {
         ...state,
-        post: { ...state.post, ...action.payload }
+        post: { ...state.post, ...action.payload },
+      };
+    case PostActionTypes.UPDATE_POST:
+      return {
+        ...state,
+        post: {
+          ...state.post,
+          ...action.payload
+        }
       }
+    case PostActionTypes.RESET_POST:
+      return {
+        ...state,
+        post: { ...initialPostState.post },
+      };
     case PostActionTypes.SET_FETCHED_POST:
       return { ...state, fetchedPostId: action.payload };
     case PostActionTypes.SET_FETCHED:
@@ -38,6 +53,19 @@ export function postReducer(state: PostState, action: PostAction): PostState {
         },
       };
     }
+    case PostActionTypes.SET_IS_UPDATE:
+      return {
+        ...state,
+        isUpdate: action.payload,
+      };
+    case PostActionTypes.RESET_IS_UPDATE:
+      return { ...state, isUpdate: false };
+    case PostActionTypes.SET_ERROR:
+      return { ...state, mutationError: action.payload };
+    case PostActionTypes.RESET_ERROR:
+      return { ...state, mutationError: null };
+    case PostActionTypes.SET_PAGE:
+        return { ...state, page: action.payload }
     default:
       return state;
   }

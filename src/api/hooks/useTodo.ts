@@ -139,7 +139,7 @@ export function useTodos() {
           }
         }
       });
-      return { previousTodos: previousData?.todos ?? [] };
+      return { previousTodos: previousData?.todos?.data ?? [] };
     },
     onError: (err, _variables, context) => {
       toast.error(getErrorMessage(err));
@@ -154,7 +154,7 @@ export function useTodos() {
       }
     },
     onSuccess: () => {
-      toast.success(TOAST_MESSAGES.deleted);
+      toast.success(TOAST_MESSAGES.deletedTodo);
     },
     // onSettled: () => {
     //   queryClient.invalidateQueries({ queryKey: dataKey });
