@@ -1,14 +1,15 @@
-import { List, Spin, Empty } from "antd";
+import { List, Spin } from "antd";
 import TodoItem from "./TodoItem";
 import Pagination from "@/components/ui/pagination/Pagination";
+import NoData from "@/shared/components/ui/nodata/NoData";
 import { useTodos } from "@/api/hooks/useTodo";
-import type { Todo } from "@/api/graphql/generated/hooks";
-import { STATUS } from "../types/todo";
 import { PLACEHOLDERS } from "@/shared/constants/placeholders";
 import { BUTTONS_LABELS } from "@/shared/constants/buttons";
 import { TITLES } from "@/shared/constants/titles";
 import { MESSAGES } from "@/shared/constants/messages";
 import { PAGE_SIZE_OPTIONS } from "@/shared/constants/pagination";
+import { STATUS } from "../types/todo";
+import type { Todo } from "@/api/graphql/generated/hooks";
 import { StyledToastContainer } from "@/shared/styles/ToastStyles";
 import * as S from "./Todo.styles";
 
@@ -36,9 +37,7 @@ const TodoList = () => {
       ) : state.fetchError ? (
         <span>{MESSAGES.errorFetchData}</span>
       ) : !state?.todos.length ? (
-        <S.WrapperInfo>
-          <Empty description={MESSAGES.noData} image={<S.StyledIcon />} />
-        </S.WrapperInfo>
+       <NoData />
       ) : (
         <List>
           {state?.todos

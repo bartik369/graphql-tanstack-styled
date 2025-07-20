@@ -43,7 +43,7 @@ export type PostAction =
 | { type: PostActionTypes.SET_POST, payload: Post }
 | { type: PostActionTypes.UPDATE_POST, payload: Partial<Post> }
 | { type: PostActionTypes.DELETE_POST}
-| { type: PostActionTypes.RESET_POST}
+| { type: PostActionTypes.RESET_POST, payload: Partial<Post>}
 | { type: PostActionTypes.SET_POST, payload: Post }
 | { type: PostActionTypes.SET_FETCHED_POST, payload: string }
 | { type: PostActionTypes.SET_FETCHED_POST, payload: string }

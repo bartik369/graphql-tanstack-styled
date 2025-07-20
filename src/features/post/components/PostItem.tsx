@@ -31,9 +31,9 @@ const PostItem = ({ post, actions, setIsOpen }: PostItemProps) => {
       <S.ButtonsGroup>
         <S.InteractionButtons>
           <S.StyledButton
-            onClick={() => actions.handleRefetchComments(post.id || "")}
             type="text"
             icon={<MessageOutlined />}
+            onClick={() => actions.handleRefetchComments(post.id || "")}
           >
             {post.comments?.data?.length}
           </S.StyledButton>

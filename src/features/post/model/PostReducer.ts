@@ -27,13 +27,17 @@ export function postReducer(state: PostState, action: PostAction): PostState {
         ...state,
         post: {
           ...state.post,
-          ...action.payload
-        }
-      }
+          ...action.payload,
+        },
+      };
     case PostActionTypes.RESET_POST:
       return {
         ...state,
-        post: { ...initialPostState.post },
+        post: {
+          id: state.post.id,
+          title: null,
+          body: null,
+        },
       };
     case PostActionTypes.SET_FETCHED_POST:
       return { ...state, fetchedPostId: action.payload };
@@ -65,7 +69,7 @@ export function postReducer(state: PostState, action: PostAction): PostState {
     case PostActionTypes.RESET_ERROR:
       return { ...state, mutationError: null };
     case PostActionTypes.SET_PAGE:
-        return { ...state, page: action.payload }
+      return { ...state, page: action.payload };
     default:
       return state;
   }

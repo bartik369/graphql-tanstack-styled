@@ -12,11 +12,7 @@ interface DynamicFormProps<T> {
   actions: PostActions<T>;
   onChange: (changedValues: Partial<T>) => void;
 }
-const DynamicForm = <T,>({
-  fields,
-  state,
-  actions,
-}: DynamicFormProps<T>) => {
+const DynamicForm = <T,>({ fields, state, actions }: DynamicFormProps<T>) => {
   const [form] = Form.useForm();
 
   useEffect(() => {
@@ -68,7 +64,8 @@ const DynamicForm = <T,>({
           >
             {BUTTONS_LABELS.reset}
           </S.ResetButton>
-          <S.SubmitButton htmlType="submit">{BUTTONS_LABELS.update}
+          <S.SubmitButton htmlType="submit">
+            {BUTTONS_LABELS.update}
           </S.SubmitButton>
         </S.CustomSpace>
       </Form.Item>
