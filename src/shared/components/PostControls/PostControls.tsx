@@ -3,7 +3,7 @@ import { EditOutlined, DeleteOutlined } from "@ant-design/icons";
 import * as S from './PostControls.styles';
 
 interface PostActionsProps<T> {
-    actions: PostActions;
+    actions: PostActions<T>;
     post: T;
     getId: (item:T) => string | undefined;
     setIsOpen?: (isOpen:boolean) => void;

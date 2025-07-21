@@ -176,7 +176,7 @@ export function usePosts() {
     dispatch({ type: PostActionTypes.INCREMENT_LIKE, payload: id });
   };
   const handleResetPost = () => {
-    dispatch({ type: PostActionTypes.RESET_POST });
+    dispatch({ type: PostActionTypes.RESET_POST, payload: { title: null, body: null } });
     dispatch({ type: PostActionTypes.RESET_IS_UPDATE });
   };
 
