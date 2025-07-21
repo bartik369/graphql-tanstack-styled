@@ -16,6 +16,12 @@ export const StyledCard = styled(Card)`
     padding: 18px 20px 5px;
   }
 `;
+export const Header = styled.h1`
+  font-size: 30px;
+  color: #ffffff;
+  text-align: center;
+  margin-bottom: 25px;
+`;
 export const GroupedUserInfo = styled.div`
   display: flex;
   align-items: center;
@@ -30,16 +36,27 @@ export const UserInfo = styled.div`
   align-items: flex-start;
 `;
 export const CustomAvatar = styled(Avatar)`
-  height: 40px;
-  width: 40px;
-  background-color: rgb(54, 63, 78);
+  flex-shrink: 0;
+  height: 33px;
+  width: 33px;
+  background-color: rgb(0, 84, 210);
+  .anticon {
+    color: #ffffff;
+  }
+  svg {
+    font-size: 16px;
+  }
 `;
 export const CustomName = styled(Text)`
+  text-align: left;
   font-size: 16px;
   font-weight:600;
   color: rgb(239, 239, 239);
   &::first-letter {
     text-transform: uppercase;
+  }
+  @media (max-width: 480px) {
+    font-size: 13px;
   }
 `;
 export const CustomEmail = styled(Text)`
