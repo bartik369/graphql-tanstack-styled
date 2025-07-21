@@ -112,6 +112,7 @@ export const StyledImg = styled.div`
   @media (max-width: 480px) {
     width: 100%;
     height: 100px;
+    margin-bottom:10px;
   }
 `;
 export const Text = styled.div`
