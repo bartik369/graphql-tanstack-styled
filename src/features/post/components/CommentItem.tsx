@@ -1,5 +1,5 @@
 import type { Comment } from "@/api/graphql/generated/graphql";
-import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { HeartOutlined, HeartFilled, UserOutlined } from "@ant-design/icons";
 import type { PostActionsBase } from "../types/post";
 import * as S from "./Comment.styles";
 
@@ -12,7 +12,7 @@ const CommentItem = ({ comment, actions, likes }: CommentProps) => {
   return (
     <S.StyledCard>
       <S.GroupedUserInfo>
-        <S.CustomAvatar />
+        <S.CustomAvatar icon={<UserOutlined />} />
         <S.UserInfo>
           <S.CustomName>{comment.name}</S.CustomName>
           <S.CustomEmail>{comment.email}</S.CustomEmail>

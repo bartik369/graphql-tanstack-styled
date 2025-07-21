@@ -35,6 +35,7 @@ const PostList = () => {
         </S.CustomModal>
       ) : null}
       <S.GroupList $isOpen={state.fetched}>
+      <S.Header>{TITLES.posts}</S.Header>
         {state.isLoadingPosts ? (
           <Spin tip={MESSAGES.loading} size="large" />
         ) : state.fetchPostErrors ? (
@@ -70,7 +71,10 @@ const PostList = () => {
           <Spin tip={MESSAGES.loading} size="large" />
         ) : (
           <>
-            <S.ButtonBack icon={<LeftOutlined />} onClick={actions.stepBack} />
+            <S.HeaderWrapper>
+              <S.ButtonBack icon={<LeftOutlined />} onClick={actions.stepBack} />
+              <S.Header>{TITLES.comments}</S.Header>
+            </S.HeaderWrapper>
             {state.comments?.map((comment) => (
               <CommentItem
                 key={comment?.id}

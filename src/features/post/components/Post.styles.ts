@@ -18,6 +18,17 @@ export const Wrapper = styled.div`
     0 32px 32px 0 rgba(37, 44, 61, 0.2), 0 50px 50px 0 rgba(37, 44, 61, 0.2),
     0 80px 80px 0 rgba(37, 44, 61, 0.2);
 `;
+export const HeaderWrapper = styled.div`
+display: flex;
+align-items: center;
+gap: 20px;
+`
+export const Header = styled.h1`
+  font-size: 30px;
+  color: #ffffff;
+  text-align: center;
+`;
+
 export const GroupList = styled.div<{ $isOpen: boolean }>`
   display: ${({ $isOpen }) => ($isOpen ? "none" : "flex")};
   flex-direction: column;
@@ -163,8 +174,8 @@ export const CommentsList = styled(List)<{ $isOpen: boolean }>`
 `;
 export const ButtonBack = styled(Button)`
   width: fit-content;
-  border: 2px solid rgb(19, 104, 232); 
   border-radius: 50%;
+  border: none;
   background-color: rgb(0, 84, 210);
   color: #ffffff;
   &:hover {
