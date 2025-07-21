@@ -753,7 +753,6 @@ width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: fit-content;
   max-width: 600px;
@@ -794,7 +793,7 @@ width: 100%;
   gap: 10px;
   padding: 10px 15px 0px;
 `,$W=pt(k0)`
-  background-color: rgb(54, 63, 78);
+  background-color: rgb(42, 102, 231);
   .anticon {
     font-size: 14px;
     color: rgb(231, 231, 231);
@@ -819,18 +818,31 @@ width: 100%;
 `,RW=pt.div`
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 5px;
   padding: 10px 20px 5px;
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    align-items: center;
+  }
 `,TW=pt.div`
+  width: 56px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  width: 80px;
-  height: 60px;
   background-color: rgb(35, 41, 54);
+  border-radius: 6px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 100px;
+  }
 `,_W=pt.div`
-  padding: 10px 20px;
+  flex: 1;
+  padding-left: 16px;
   font-size: 12px;
   color: rgb(222, 221, 221);
   text-align: left;
@@ -880,7 +892,7 @@ width: 100%;
   display: ${({$isOpen:e})=>e?"flex":"none"};
 `,PW=pt(dr)`
   width: fit-content;
-  border: 2px solid rgb(22, 111, 244);
+  border: 2px solid rgb(19, 104, 232); 
   border-radius: 50%;
   background-color: rgb(0, 84, 210);
   color: #ffffff;
