@@ -8,6 +8,9 @@ export const StyledToastContainer = styled(ToastContainer)`
     border-radius: 8px !important;
     font-size: 14px !important;
     box-shadow: rgba(14, 14, 16, 0.9) 0px 25px 20px -20px;
+    @media (max-width: 480px) {
+    width: 250px;
+  }
   }
 
   .Toastify__toast--success {
