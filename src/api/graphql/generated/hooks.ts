@@ -1,4 +1,4 @@
-import { useMutation, useQuery} from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import type { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
 import { graphqlFetcher } from '../client/graphqlFetcher';
 export type Maybe<T> = T | null;
@@ -518,6 +518,28 @@ export type UsersPage = {
   meta?: Maybe<PageMetadata>;
 };
 
+export type CreatePostMutationVariables = Exact<{
+  input: CreatePostInput;
+}>;
+
+
+export type CreatePostMutation = { __typename?: 'Mutation', createPost?: { __typename?: 'Post', id?: string | null, title?: string | null, body?: string | null } | null };
+
+export type DeletePostMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+}>;
+
+
+export type DeletePostMutation = { __typename?: 'Mutation', deleteTodo?: boolean | null };
+
+export type UpdatePostMutationVariables = Exact<{
+  id: Scalars['ID']['input'];
+  input: UpdatePostInput;
+}>;
+
+
+export type UpdatePostMutation = { __typename?: 'Mutation', updatePost?: { __typename?: 'Post', id?: string | null, title?: string | null, body?: string | null } | null };
+
 export type CreateTodoMutationVariables = Exact<{
   input: CreateTodoInput;
 }>;
@@ -540,10 +562,19 @@ export type UpdateTodoMutationVariables = Exact<{
 
 export type UpdateTodoMutation = { __typename?: 'Mutation', updateTodo?: { __typename?: 'Todo', id?: string | null, title?: string | null, completed?: boolean | null } | null };
 
-export type GetPostsQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetCommentsByIdQueryVariables = Exact<{
+  postId: Scalars['ID']['input'];
+}>;
 
 
-export type GetPostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostsPage', data?: Array<{ __typename?: 'Post', id?: string | null, title?: string | null, body?: string | null } | null> | null } | null };
+export type GetCommentsByIdQuery = { __typename?: 'Query', post?: { __typename?: 'Post', comments?: { __typename?: 'CommentsPage', data?: Array<{ __typename?: 'Comment', id?: string | null, name?: string | null, email?: string | null, body?: string | null } | null> | null } | null } | null };
+
+export type GetPostsQueryVariables = Exact<{
+  options?: InputMaybe<PageQueryOptions>;
+}>;
+
+
+export type GetPostsQuery = { __typename?: 'Query', posts?: { __typename?: 'PostsPage', data?: Array<{ __typename?: 'Post', id?: string | null, title?: string | null, body?: string | null, user?: { __typename?: 'User', id?: string | null, name?: string | null, email?: string | null } | null, comments?: { __typename?: 'CommentsPage', data?: Array<{ __typename?: 'Comment', id?: string | null } | null> | null } | null } | null> | null, meta?: { __typename?: 'PageMetadata', totalCount?: number | null } | null } | null };
 
 export type GetTodosQueryVariables = Exact<{
   options?: InputMaybe<PageQueryOptions>;
@@ -553,6 +584,71 @@ export type GetTodosQueryVariables = Exact<{
 export type GetTodosQuery = { __typename?: 'Query', todos?: { __typename?: 'TodosPage', data?: Array<{ __typename?: 'Todo', id?: string | null, title?: string | null, completed?: boolean | null } | null> | null, meta?: { __typename?: 'PageMetadata', totalCount?: number | null } | null } | null };
 
 
+
+export const CreatePostDocument = `
+    mutation CreatePost($input: CreatePostInput!) {
+  createPost(input: $input) {
+    id
+    title
+    body
+  }
+}
+    `;
+
+export const useCreatePostMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<CreatePostMutation, TError, CreatePostMutationVariables, TContext>) => {
+    
+    return useMutation<CreatePostMutation, TError, CreatePostMutationVariables, TContext>(
+      {
+    mutationKey: ['CreatePost'],
+    mutationFn: (variables?: CreatePostMutationVariables) => graphqlFetcher<CreatePostMutation, CreatePostMutationVariables>(CreatePostDocument, variables)(),
+    ...options
+  }
+    )};
+
+export const DeletePostDocument = `
+    mutation DeletePost($id: ID!) {
+  deleteTodo(id: $id)
+}
+    `;
+
+export const useDeletePostMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<DeletePostMutation, TError, DeletePostMutationVariables, TContext>) => {
+    
+    return useMutation<DeletePostMutation, TError, DeletePostMutationVariables, TContext>(
+      {
+    mutationKey: ['DeletePost'],
+    mutationFn: (variables?: DeletePostMutationVariables) => graphqlFetcher<DeletePostMutation, DeletePostMutationVariables>(DeletePostDocument, variables)(),
+    ...options
+  }
+    )};
+
+export const UpdatePostDocument = `
+    mutation UpdatePost($id: ID!, $input: UpdatePostInput!) {
+  updatePost(id: $id, input: $input) {
+    id
+    title
+    body
+  }
+}
+    `;
+
+export const useUpdatePostMutation = <
+      TError = unknown,
+      TContext = unknown
+    >(options?: UseMutationOptions<UpdatePostMutation, TError, UpdatePostMutationVariables, TContext>) => {
+    
+    return useMutation<UpdatePostMutation, TError, UpdatePostMutationVariables, TContext>(
+      {
+    mutationKey: ['UpdatePost'],
+    mutationFn: (variables?: UpdatePostMutationVariables) => graphqlFetcher<UpdatePostMutation, UpdatePostMutationVariables>(UpdatePostDocument, variables)(),
+    ...options
+  }
+    )};
 
 export const CreateTodoDocument = `
     mutation CreateTodo($input: CreateTodoInput!) {
@@ -619,13 +715,57 @@ export const useUpdateTodoMutation = <
   }
     )};
 
+export const GetCommentsByIdDocument = `
+    query GetCommentsById($postId: ID!) {
+  post(id: $postId) {
+    comments {
+      data {
+        id
+        name
+        email
+        body
+      }
+    }
+  }
+}
+    `;
+
+export const useGetCommentsByIdQuery = <
+      TData = GetCommentsByIdQuery,
+      TError = unknown
+    >(
+      variables: GetCommentsByIdQueryVariables,
+      options?: Omit<UseQueryOptions<GetCommentsByIdQuery, TError, TData>, 'queryKey'> & { queryKey?: UseQueryOptions<GetCommentsByIdQuery, TError, TData>['queryKey'] }
+    ) => {
+    
+    return useQuery<GetCommentsByIdQuery, TError, TData>(
+      {
+    queryKey: ['GetCommentsById', variables],
+    queryFn: graphqlFetcher<GetCommentsByIdQuery, GetCommentsByIdQueryVariables>(GetCommentsByIdDocument, variables),
+    ...options
+  }
+    )};
+
 export const GetPostsDocument = `
-    query GetPosts {
-  posts {
+    query GetPosts($options: PageQueryOptions) {
+  posts(options: $options) {
     data {
       id
       title
       body
+      user {
+        id
+        name
+        email
+      }
+      comments {
+        data {
+          id
+        }
+      }
+    }
+    meta {
+      totalCount
     }
   }
 }

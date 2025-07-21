@@ -1,9 +1,10 @@
-import Home from "@/components/pages/home/Home";
-const HomeConfig = {
-    title: 'Home',
+import MainPage from "@/pages/main";
+
+const MainConfig = {
+    title: 'Main',
     path: '/',
-    element: <Home/>,
+    element: <MainPage />,
     requireAuth: false,
 }
 
-export default HomeConfig;
+export default MainConfig;

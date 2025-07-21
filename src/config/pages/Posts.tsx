@@ -1,9 +1,9 @@
-import Posts from "@/components/pages/post/Posts";
+import  PostPage from "@/pages/posts";
 
 const PostsConfig = {
     title: 'Posts',
     path: 'posts',
-    element: <Posts />,
+    element: <PostPage />,
     requireAuth: false,
 }
 

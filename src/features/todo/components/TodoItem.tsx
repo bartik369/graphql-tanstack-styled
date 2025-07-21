@@ -1,6 +1,6 @@
 import { DeleteOutlined } from "@ant-design/icons";
-import type { Todo } from "@/api/graphql/generated/hooks";
 import type { TodoActions } from "../types/todo";
+import type { Todo } from "@/api/graphql/generated/graphql";
 import * as S from "./Todo.styles";
 
 interface TodoItemProps {

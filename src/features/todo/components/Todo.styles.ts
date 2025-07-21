@@ -1,6 +1,4 @@
 import { Button, Checkbox, Input, List } from "antd";
-import { InboxOutlined } from "@ant-design/icons";
-import { ToastContainer } from "react-toastify";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -11,14 +9,14 @@ export const Wrapper = styled.div`
   height: fit-content;
   max-width: 450px;
   min-width: 300px;
-  margin: 40px 20px;
+  margin: 20px 30px 100px;
   padding: 35px;
   border-radius: 30px;
   background-color: #161a22;
   box-shadow: 0 4px 4px 0 rgba(45, 51, 68, 0.2),
     0 8px 8px 0 rgba(36, 42, 59, 0.2), 0 16px 16px 0 rgba(37, 44, 61, 0.2),
-    0 32px 32px 0 rgba(37, 44, 61, 0.2), 0 64px 64px 0 rgba(37, 44, 61, 0.2),
-    0 128px 128px 0 rgba(37, 44, 61, 0.2);
+    0 32px 32px 0 rgba(37, 44, 61, 0.2), 0 50px 50px 0 rgba(37, 44, 61, 0.2),
+    0 80px 80px 0 rgba(37, 44, 61, 0.2);
 `;
 
 export const Header = styled.h1`
@@ -41,7 +39,6 @@ export const ListItemWrapper = styled.div`
   width: 100%;
   padding: 8px 14px;
   border-radius: 6px;
-  box-sizing: border-box;
   background-color: #1e232f;
   transition: background-color 0.3s ease-in;
   &:hover {
@@ -186,39 +183,15 @@ export const CustomCheckbox = styled(Checkbox)`
   }
 `;
 
-export const StyledToastContainer = styled(ToastContainer)`
-  .Toastify__toast {
-    background-color: #333842 !important;
-    color: white !important;
-    border-radius: 8px !important;
-    font-size: 14px !important;
-    box-shadow: rgba(14, 14, 16, 0.9) 0px 25px 20px -20px;
-  }
-
-  .Toastify__toast--success {
-    background-color: rgb(34, 40, 54) !important;
-  }
-
-  .Toastify__toast--error {
-    background-color: #dc3545 !important;
-  }
-
-  .Toastify__progress-bar {
-    background: #00ff00 !important;
-  }
-  .Toastify__close-button--light {
-    color: #ffffff;
-  }
-`;
-export const WrapperInfo = styled.div`
-  display: flex;
-  justify-content: center;
-  .ant-empty-description {
-    color: rgb(41, 49, 65);
-    font-size: 14px;
-  }
-`;
-export const StyledIcon = styled(InboxOutlined)`
-  font-size: 80px;
-  color: #293141;
-`;
+// export const WrapperInfo = styled.div`
+//   display: flex;
+//   justify-content: center;
+//   .ant-empty-description {
+//     color: rgb(41, 49, 65);
+//     font-size: 14px;
+//   }
+// `;
+// export const StyledIcon = styled(InboxOutlined)`
+//   font-size: 80px;
+//   color: #293141;
+// `;

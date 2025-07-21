@@ -1,9 +1,9 @@
-import Todos from "@/components/pages/todo/Todos";
+import TodoPage from "@/pages/todos";
 
 const TodosConfig = {
     title: 'Todos',
     path: 'todos',
-    element: <Todos />,
+    element: <TodoPage />,
     requireAuth: false,
 }
 

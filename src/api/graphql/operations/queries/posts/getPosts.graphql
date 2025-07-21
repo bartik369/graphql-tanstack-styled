@@ -1,9 +1,22 @@
-query GetPosts {
-    posts {
+query GetPosts($options: PageQueryOptions) {
+    posts(options: $options) {
         data {
             id
             title
             body
+            user {
+                id
+                name
+                email
+            }
+            comments {
+                data {
+                    id
+                }
+            }
         }
+        meta {
+           totalCount
+    }
     }
 }
