@@ -5,7 +5,6 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  align-items: center;
   width: 100%;
   height: fit-content;
   max-width: 600px;
@@ -51,7 +50,7 @@ export const UserInfo = styled.div`
   padding: 10px 15px 0px;
 `;
 export const CustomAvatar = styled(Avatar)`
-  background-color: rgb(54, 63, 78);
+  background-color: rgb(42, 102, 231);
   .anticon {
     font-size: 14px;
     color: rgb(231, 231, 231);
@@ -80,20 +79,33 @@ export const UserName = styled.p`
 export const Content = styled.div`
   display: flex;
   align-items: center;
+  flex-wrap: nowrap;
   gap: 5px;
   padding: 10px 20px 5px;
+  @media (max-width: 480px) {
+    flex-wrap: wrap;
+    align-items: center;
+  }
 `;
 export const StyledImg = styled.div`
+  width: 56px;
+  height: 50px;
+  min-width: 50px;
+  min-height: 50px;
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-shrink: 0;
-  width: 80px;
-  height: 60px;
   background-color: rgb(35, 41, 54);
+  border-radius: 6px;
+
+  @media (max-width: 480px) {
+    width: 100%;
+    height: 100px;
+  }
 `;
 export const Text = styled.div`
-  padding: 10px 20px;
+  flex: 1;
+  padding-left: 16px;
   font-size: 12px;
   color: rgb(222, 221, 221);
   text-align: left;
@@ -151,7 +163,7 @@ export const CommentsList = styled(List)<{ $isOpen: boolean }>`
 `;
 export const ButtonBack = styled(Button)`
   width: fit-content;
-  border: 2px solid rgb(22, 111, 244);
+  border: 2px solid rgb(19, 104, 232); 
   border-radius: 50%;
   background-color: rgb(0, 84, 210);
   color: #ffffff;
@@ -198,3 +210,4 @@ export const CustomModal = styled(Modal)`
     line-height: 32px;
   }
 `;
+
