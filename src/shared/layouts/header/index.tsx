@@ -1,8 +1,11 @@
+import Navigation from "./Navigation";
+import * as S from './Header.styles';
+
 const Header = () => {
     return (
-        <div>
-            шапка
-        </div>
+        <S.Header>
+           <Navigation />
+        </S.Header>
     );
 };
 

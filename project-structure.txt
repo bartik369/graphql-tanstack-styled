@@ -40041,7 +40041,6 @@
 │   │   │   │           └── getTodos.graphql
 │   │   │   ├── schemas
 │   │   │   └── types
-│   │   │       └── manual.ts
 │   │   └── hooks
 │   │       ├── usePosts.ts
 │   │       └── useTodo.ts
@@ -40058,8 +40057,8 @@
 │   │   └── react.svg
 │   ├── components
 │   │   ├── pages
-│   │   │   ├── home
-│   │   │   │   └── Home.tsx
+│   │   │   ├── main
+│   │   │   │   └── Main.tsx
 │   │   │   ├── post
 │   │   │   │   ├── Posts.styles.ts
 │   │   │   │   └── Posts.tsx
@@ -40107,6 +40106,13 @@
 │   ├── lib
 │   │   └── queryClient.ts
 │   ├── main.tsx
+│   ├── pages
+│   │   ├── main
+│   │   │   └── index.tsx
+│   │   ├── posts
+│   │   │   └── index.tsx
+│   │   └── todos
+│   │       └── index.tsx
 │   ├── shared
 │   │   ├── components
 │   │   │   ├── PostControls
@@ -40131,6 +40137,16 @@
 │   │   │   └── titles.ts
 │   │   ├── hooks
 │   │   │   └── useModal.ts
+│   │   ├── layouts
+│   │   │   ├── footer
+│   │   │   │   ├── Footer.styles.ts
+│   │   │   │   └── index.tsx
+│   │   │   ├── header
+│   │   │   │   ├── Header.styles.ts
+│   │   │   │   └── index.tsx
+│   │   │   └── page-layout
+│   │   │       ├── PageLayout.styles.ts
+│   │   │       └── index.tsx
 │   │   ├── styles
 │   │   │   ├── GlobalStyle.ts
 │   │   │   ├── Modal.styles.ts
@@ -40139,11 +40155,12 @@
 │   │   └── utils
 │   │       └── getErrorMessage.ts
 │   ├── stores
-│   └── vite-env.d.ts
+│   ├── vite-env.d.ts
+│   └── widgets
 ├── tsconfig.app.json
 ├── tsconfig.json
 ├── tsconfig.node.json
 ├── vite.config.ts
 └── yarn.lock
 
-3333 directories, 36814 files
+3342 directories, 36822 files

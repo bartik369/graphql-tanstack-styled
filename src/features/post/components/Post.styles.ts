@@ -5,23 +5,25 @@ export const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  align-items: center;
   width: 100%;
   height: fit-content;
   max-width: 600px;
   min-width: 300px;
-  margin: 40px 20px;
+  margin: 20px 30px 100px;
   padding: 35px;
   border-radius: 30px;
   background-color: #161a22;
   box-shadow: 0 4px 4px 0 rgba(45, 51, 68, 0.2),
     0 8px 8px 0 rgba(36, 42, 59, 0.2), 0 16px 16px 0 rgba(37, 44, 61, 0.2),
-    0 32px 32px 0 rgba(37, 44, 61, 0.2), 0 64px 64px 0 rgba(37, 44, 61, 0.2),
-    0 128px 128px 0 rgba(37, 44, 61, 0.2);
+    0 32px 32px 0 rgba(37, 44, 61, 0.2), 0 50px 50px 0 rgba(37, 44, 61, 0.2),
+    0 80px 80px 0 rgba(37, 44, 61, 0.2);
 `;
 export const GroupList = styled.div<{ $isOpen: boolean }>`
   display: ${({ $isOpen }) => ($isOpen ? "none" : "flex")};
   flex-direction: column;
   gap: 30px;
+  width: 100%;
 `;
 export const List = styled.div`
   display: flex;

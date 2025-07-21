@@ -7,7 +7,9 @@ const PageLayout = ({ children }: { children: React.ReactNode }) => {
   return (
     <S.Wrapper>
       <Header />
-      <main>{children}</main>
+      <S.CustomMain>
+        {children}
+      </S.CustomMain>
       <Footer />
     </S.Wrapper>
   );
