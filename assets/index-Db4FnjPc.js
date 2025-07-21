@@ -847,6 +847,7 @@ gap: 20px;
   @media (max-width: 480px) {
     width: 100%;
     height: 100px;
+    margin-bottom:10px;
   }
 `,IW=vt.div`
   flex: 1;
