@@ -1,4 +1,4 @@
-import { Avatar, Button, Card, Modal, Spin } from "antd";
+import { Avatar, Button, Card, Modal } from "antd";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
