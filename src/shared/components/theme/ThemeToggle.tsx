@@ -1,5 +1,5 @@
 import { useTheme } from "@/shared/hooks/useTheme";
-import { Space, Switch } from "antd";
+import { Space } from "antd";
 import { MoonOutlined, SunOutlined } from "@ant-design/icons";
 import * as S from "./ThemeToggle.styles";
 
