@@ -1,4 +1,4 @@
-import { Button } from "antd";
+import { Button, Spin } from "antd";
 import styled from "styled-components";
 
 export const PostControls = styled.div`

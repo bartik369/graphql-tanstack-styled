@@ -16,6 +16,7 @@ import * as S from "./Post.styles";
 
 const PostList = () => {
   const { state, actions, setters } = usePosts();
+  
   return (
     <S.Wrapper>
       <StyledToastContainer position="top-center" />

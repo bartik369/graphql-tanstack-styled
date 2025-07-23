@@ -41,7 +41,7 @@ export const CustomAvatar = styled(Avatar)`
   width: 33px;
   background-color: var(--color-primary-avatar);
   .anticon {
-    color: var(--color-font-primary);
+    color: var(--color-avatar-icon);
   }
   svg {
     font-size: 16px;

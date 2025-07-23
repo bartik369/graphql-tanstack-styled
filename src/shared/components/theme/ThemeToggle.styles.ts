@@ -2,18 +2,19 @@ import { Switch } from "antd";
 import styled from "styled-components";
 
 export const CustomSwitch = styled(Switch)`
-  min-width: 40px;
+  display: flex;
+  align-items: center;
+  width: 50px;
   height: 27px;
   line-height: 27px;
   padding: 5px 2px;
-  display: flex;
-  align-items: center;
 
   .ant-switch-handle {
     top: 50%;
     transform: translateY(-50%);
-    left: 5px;
+    left:5px;
     transition: left 0.3s;
+    margin-right: 10px;
   }
 
   &.ant-switch-checked .ant-switch-handle {
