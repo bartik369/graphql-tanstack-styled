@@ -3,18 +3,18 @@ import { css } from "styled-components";
 import styled from "styled-components";
 
 export const InputBaseStyles = css`
-  background-color: rgb(31, 37, 46);
-  border: 1px solid rgb(49, 59, 74);
+  background-color: var(--color-bg-form-input);
+  border: 1px solid var(--color-form-border);
   padding: 12px;
   &:hover,
   &:active,
   &:focus {
-    background-color: rgb(38, 45, 56);
-    border: 1px solid rgb(26, 118, 255);
+    background-color: var(--color-bg-form-input-hover);
+    border: 1px solid var(--color-form-border-hover);
   }
   &.ant-input {
     background-color: transparent !important;
-    color: rgb(222, 221, 221) !important;
+    color: var(--color-font-primary) !important;
   }
 `;
 export const CustomForm = styled(Form)`
@@ -45,11 +45,11 @@ color: rgb(243, 243, 243);
 `
 export const SubmitButton = styled(Button)`
 border: none;
-background-color: #0067ff;
+background-color: var(--color-primary);
 font-size: 12px;
 color: rgb(243, 243, 243);
 &:hover {
-    background-color:rgb(26, 118, 255) !important;
+    background-color: var(--color-primary-hover) !important;
     color: rgb(243, 243, 243) !important;
 }
 `

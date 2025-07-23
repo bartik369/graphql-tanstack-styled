@@ -9,41 +9,41 @@ export const StyledPagination = styled(Pagination)`
   .ant-pagination-item {
     border: none;
     border-radius: 4px;
-    background-color: rgb(34, 40, 53);
+    background-color: var(--color-btn-pagination);
     transition: all 0.3s;
     a {
-      color: rgb(121, 127, 140);
+      color: var(--color-pagination-link);
       &:hover {
-        color: #ffffff;
+        color: var(--color-pagination-link-hover);
       }
     }
 
     &:hover {
-      color: #ffffff !important;
-      background-color: #0067ff !important;
+      color: var(--color-pagination-link-hover) !important;
+      background-color: var(--color-primary) !important;
     }
   }
   .ant-pagination-item-active {
     font-weight: bold;
-    background-color: #0067ff;
+    background-color: var(--color-primary) !important;;
     a {
-      color: #ffffff;
+      color: var(--color-pagination-link-hover);
     }
   }
 
   .ant-pagination-prev,
   .ant-pagination-next {
-    background-color: rgb(41, 48, 65);
+    background-color: var(--color-bg-next-btn);
     span {
-      color: rgb(154, 161, 177);
+      color: var(--color-next-btn);
     }
     &:hover {
       span {
-        color: #ffffff;
+        color: var(--color-pagination-link-hover);
       }
     }
     &:hover {
-      background-color: #0067ff;
+      background-color: var(--color-primary) !important;;
     }
   }
 
