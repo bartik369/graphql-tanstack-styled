@@ -6,11 +6,11 @@ import styled from "styled-components";
 export const StyledCard = styled(Card)`
   border: none;
   border-radius: 12px;
-  background-color: #1e232f;
-  box-shadow: rgba(17, 20, 27, 0.9) 0px 11px 11px -11px;
+  background-color: var(--color-bg-card);
+  box-shadow: var(--color-card-box-shadow);
   transition: box-shadow 0.3s ease-in-out;
   &:hover {
-    box-shadow: rgba(17, 20, 27, 0.8) 0px 35px 30px -30px;
+    box-shadow: var(--color-card-box-shadow-hover);
   }
   .ant-card-body {
     padding: 18px 20px 5px;
@@ -18,7 +18,7 @@ export const StyledCard = styled(Card)`
 `;
 export const Header = styled.h1`
   font-size: 30px;
-  color: #ffffff;
+  color: var(--color-font-primary);
   text-align: center;
   margin-bottom: 25px;
 `;
@@ -28,7 +28,7 @@ export const GroupedUserInfo = styled.div`
   gap: 10px;
   padding-bottom: 8px;
   margin-bottom: 10px;
-  border-bottom: 1px solid rgb(38, 46, 60);
+  border-bottom: 1px solid var(--color-title-border);
 `;
 export const UserInfo = styled.div`
   display: flex;
@@ -39,9 +39,9 @@ export const CustomAvatar = styled(Avatar)`
   flex-shrink: 0;
   height: 33px;
   width: 33px;
-  background-color: rgb(0, 84, 210);
+  background-color: var(--color-primary-avatar);
   .anticon {
-    color: #ffffff;
+    color: var(--color-font-primary);
   }
   svg {
     font-size: 16px;
@@ -50,8 +50,8 @@ export const CustomAvatar = styled(Avatar)`
 export const CustomName = styled(Text)`
   text-align: left;
   font-size: 16px;
-  font-weight:600;
-  color: rgb(239, 239, 239);
+  font-weight: 600;
+  color: var(--color-font-name);
   &::first-letter {
     text-transform: uppercase;
   }
@@ -61,12 +61,12 @@ export const CustomName = styled(Text)`
 `;
 export const CustomEmail = styled(Text)`
   font-size: 12px;
-  color: rgb(129, 134, 141);
+  color: var(--color-font-ext-name);
 `;
 export const CustomText = styled(Text)`
   display: block;
   font-size: 12px;
-  color: rgb(222, 221, 221);
+  color: var(--color-font-description);
   text-align: left;
   &::first-letter {
     text-transform: uppercase;
@@ -82,10 +82,11 @@ export const CommentActions = styled.div`
 `;
 
 export const FavoriteButton = styled(Button)<{ $favorite?: boolean }>`
-  color: ${({ $favorite }) => ($favorite ? "#ee3838" : "#858994")} !important;
+  color: ${({ $favorite }) =>
+    $favorite ? "var( --color-delete)" : "var(--color-icon)"} !important;
   background-color: transparent;
   &:hover {
-    color: #ee3838 !important;
+    color: var(--color-delete) !important;
     background-color: transparent !important;
   }
   .anticon,
@@ -96,20 +97,20 @@ export const FavoriteButton = styled(Button)<{ $favorite?: boolean }>`
 export const Count = styled.span`
   display: inline-block;
   min-width: 10px;
-  color: #ee3838;
+  color: var(--color-delete);
 `;
 
 export const StyledButton = styled(Button)`
-  color: rgb(133, 137, 148);
+  color: var(--color-icon);
   background-color: transparent;
   &:hover {
-    color: #ffffff !important;
+    color: var(--color-font-primary) !important;
     background-color: transparent !important;
   }
   .anticon {
     font-size: 20px;
     &:hover {
-      color: #ffffff !important;
+      color: var(--color-font-primary) !important;
     }
   }
   svg {
@@ -117,14 +118,14 @@ export const StyledButton = styled(Button)`
   }
 `;
 export const DeleteButton = styled(Button)`
-  color: rgb(133, 137, 148);
+  color: var(--color-icon);
   &:hover {
-    color: rgb(238, 56, 56) !important;
+    color: var(--color-delete) !important;
   }
   .anticon {
     font-size: 20px;
     &:hover {
-      color: rgb(238, 56, 56) !important;
+      color: var(--color-delete) !important;
     }
   }
   svg {

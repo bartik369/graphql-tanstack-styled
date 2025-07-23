@@ -8,22 +8,40 @@ export const CustomMenu = styled(Menu)`
 
   .ant-menu-item,
   .ant-menu-item a {
-    color: rgb(203, 203, 203);
+    color: var(--color-font-menu);
   }
 
   .ant-menu-item:hover,
   .ant-menu-item:hover a {
-    color: #0067ff;
+    color: var(--color-font-active);
     background-color: transparent;
   }
 
   .ant-menu-item-selected,
   .ant-menu-item-selected a {
-    color: #0067ff !important;
+    color: var(--color-font-active) !important;
   }
 
   .ant-menu-item-selected:hover,
   .ant-menu-item-selected:hover a {
-    color: #0067ff !important;
+    color: var(--color-font-active) !important;
   }
+  .ant-menu-item::after {
+    display: none !important;
+  }
+
+  .ant-menu-item-selected a {
+    position: relative;
+  }
+
+  .ant-menu-item-selected a::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-font-active)
+  }
+
 `;

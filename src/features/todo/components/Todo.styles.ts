@@ -12,16 +12,13 @@ export const Wrapper = styled.div`
   margin: 20px 30px 100px;
   padding: 35px;
   border-radius: 30px;
-  background-color: #161a22;
-  box-shadow: 0 4px 4px 0 rgba(45, 51, 68, 0.2),
-    0 8px 8px 0 rgba(36, 42, 59, 0.2), 0 16px 16px 0 rgba(37, 44, 61, 0.2),
-    0 32px 32px 0 rgba(37, 44, 61, 0.2), 0 50px 50px 0 rgba(37, 44, 61, 0.2),
-    0 80px 80px 0 rgba(37, 44, 61, 0.2);
+  background-color: var(--color-wrapper);
+  box-shadow:var(--color-box-shadow);
 `;
 
 export const Header = styled.h1`
   font-size: 30px;
-  color: #ffffff;
+  color: var(--color-font-primary);
   text-align: center;
   margin-bottom: 25px;
 `;
@@ -39,11 +36,11 @@ export const ListItemWrapper = styled.div`
   width: 100%;
   padding: 8px 14px;
   border-radius: 6px;
-  background-color: #1e232f;
-  transition: background-color 0.3s ease-in;
+  background-color: var(--color-bg-card);
+  transition: background-color 0.15s ease-in;
   &:hover {
-    background-color: rgb(34, 40, 53);
-    box-shadow: rgba(9, 9, 9, 0.45) 0px 25px 20px -20px;
+    background-color: var(--color-bg-card-hover);
+    box-shadow: var(--color-card-box-shadow);
   }
 `;
 
@@ -59,42 +56,42 @@ export const StyledInput = styled(Input)`
   width: 100%;
   font-size: 14px;
   line-height: 1.5;
-  border: 2px solid rgb(44, 52, 68);
-  background-color: rgb(32, 38, 50);
-  color: #fbffff;
+  border: 2px solid var(--color-border-input);
+  background-color: var(--color-bg-input);
+  color: var(--color-font-primary);
   &:hover {
-    background-color: rgb(50, 57, 68);
-    border-color: #0067ff;
+    background-color: var(--color-bg-input-hover);
+    border-color: var(--color-primary);
   }
   &:focus {
-    background-color: rgb(50, 57, 68);
+    background-color: var(--color-bg-input-hover);
     outline: none;
-    border-color: #0067ff;
-    box-shadow: 0 0 0 2px rgba(24, 144, 255, 0.2);
+    border-color: var(--color-primary);
+    box-shadow: var(--color-input-box-shadow);
   }
   &::placeholder {
-    color: #6d737a;
+    color: var(--color-font-ext-name);
   }
 `;
 
 export const AddButton = styled(Button)`
   padding: 0 11px;
   height: 47px;
-  color: #ffffff;
+  color: var(--color-font-primary-btn);
   font-size: 12px;
-  background-color: #333842;
+  background-color: var(--color-bg-primary-btn);
   border: none !important;
   &:hover {
-    color: #ffffff !important;
-    background-color: #0067ff !important;
+    color: var(--color-font-primary-btn) !important;
+    background-color: var(--color-primary) !important;
     border: none !important;
   }
   &:disabled {
-    background-color: #333842 !important;
-    color: #686d76;
+    background-color: var(--color-bg-primary-btn-disabled) !important;
+    color: var(--color-font-not-active);
   }
   &:disabled:hover {
-    color: #686d76 !important;
+    color: var(--color-font-not-active) !important;
   }
 `;
 export const TodoText = styled.span<{ $completed: boolean }>`
@@ -102,7 +99,10 @@ export const TodoText = styled.span<{ $completed: boolean }>`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  color: ${({ $completed }) => ($completed ? "#555a64" : "#f5f7f9")};
+  color: ${({ $completed }) => ($completed 
+    ? "var(--color-crossed)" 
+    : "var(--color-font-description)")
+  };
   text-decoration: ${({ $completed }) =>
     $completed ? "line-through" : "none"};
   font-size: 13px;
@@ -117,8 +117,14 @@ export const ButtonsGroup = styled.div`
 `;
 export const StyledButton = styled(Button)<{ $isActive?: boolean }>`
   &&.ant-btn {
-    background-color: ${({ $isActive }) => ($isActive ? "#0067ff" : "#222835")};
-    color: ${({ $isActive }) => ($isActive ? "#ffffff" : "#9aa1b1")};
+    background-color: ${({ $isActive }) => ($isActive 
+      ? "var(--color-primary)" 
+      : "var(--color-bg-primary-btn)")
+    };
+    color: ${({ $isActive }) => ($isActive 
+      ? "var(--color-font)" 
+      : "var(--color-font)")
+    };
     border: none;
     height: 40px;
     font-size: 13px;
@@ -128,25 +134,26 @@ export const StyledButton = styled(Button)<{ $isActive?: boolean }>`
 
     &:hover {
       background-color: ${({ $isActive }) =>
-        $isActive ? "#0051cc" : "#293041"};
-      color: #ffffff;
+        $isActive 
+          ? "var(--color-primary-hover)" 
+          : "var(--color-bg-primary-btn-hover)"
+        };
+      color: var(--color-font);
     }
   }
 `;
 
-export const ActiveButton = styled.button<{ $active?: boolean }>`
-  background-color: ${({ $active }) => ($active ? "#999999" : "#222222")};
-`;
 export const CustomDeleteButton = styled(Button)`
+background-color: transparent !important;
   .anticon {
     font-size: 18px !important;
-    color: rgb(133, 137, 148);
+    color: var(--color-icon);
     transition: all 0.3s;
   }
   &:hover {
     .anticon {
       font-size: 18px !important;
-      color: rgb(238, 56, 56);
+      color: var(--color-delete);
     }
   }
 `;
@@ -156,14 +163,14 @@ export const CustomCheckbox = styled(Checkbox)`
     width: 20px;
     height: 20px;
     border-radius: 50%;
-    background-color: #323741;
-    border: 1px solid #4e525a;
+    background-color: var(--color-checkbox);
+    border: 1px solid var(--color-checkbox-border);
     transition: all 0.3s;
   }
 
   .ant-checkbox-checked .ant-checkbox-inner {
-    background-color: #0067ff;
-    border-color: #0067ff;
+    background-color: var(--color-primary);
+    border-color: var(--color-primary);
   }
 
   .ant-checkbox-checked .ant-checkbox-inner::after {
@@ -171,27 +178,18 @@ export const CustomCheckbox = styled(Checkbox)`
     left: 6px;
     height: 10px;
     width: 6px;
-    border-color: #fff;
+    border-color: var(--color-font-check);
   }
 
   .ant-checkbox:hover .ant-checkbox-inner {
-    border-color: #0067ff;
+    border-color: var(--color-primary);
   }
 
   .ant-checkbox-input:focus + .ant-checkbox-inner {
-    border-color: #0067ff;
+    border-color: var(--color-primary);
   }
+  .ant-checkbox-checked:hover .ant-checkbox-inner {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
 `;
-
-// export const WrapperInfo = styled.div`
-//   display: flex;
-//   justify-content: center;
-//   .ant-empty-description {
-//     color: rgb(41, 49, 65);
-//     font-size: 14px;
-//   }
-// `;
-// export const StyledIcon = styled(InboxOutlined)`
-//   font-size: 80px;
-//   color: #293141;
-// `;

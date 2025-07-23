@@ -1,6 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import PublicRoutes from "./app/router/PublicRoutes";
 import publicRoutes from "./config/routes/publicRoutes";
+import "@/shared/styles/theme.scss";
 import "./App.css";
 
 function App() {

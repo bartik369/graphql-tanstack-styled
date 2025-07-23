@@ -7,16 +7,16 @@ export const PostControls = styled.div`
 `;
 
 export const StyledButton = styled(Button)`
-  color: rgb(133, 137, 148);
+  color: var(--color-icon);
   background-color: transparent;
   &:hover {
-    color: #ffffff !important;
+    color: var(--color-font-primary) !important;
     background-color: transparent !important;
   }
   .anticon {
     font-size: 20px;
     &:hover {
-      color: #ffffff !important;
+      color: var(--color-font-primary) !important;
     }
   }
   svg {
@@ -24,14 +24,15 @@ export const StyledButton = styled(Button)`
   }
 `;
 export const DeleteButton = styled(Button)`
-  color: rgb(133, 137, 148);
+  color: var(--color-icon);
   &:hover {
-    color: rgb(238, 56, 56) !important;
+    color: var(--color-delete) !important;
+    background-color: transparent !important;
   }
   .anticon {
     font-size: 20px;
     &:hover {
-      color: rgb(238, 56, 56) !important;
+      color: var(--color-delete) !important;
     }
   }
   svg {

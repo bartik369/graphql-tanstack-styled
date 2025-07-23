@@ -12,11 +12,8 @@ export const Wrapper = styled.div`
   margin: 20px 30px 100px;
   padding: 35px;
   border-radius: 30px;
-  background-color: #161a22;
-  box-shadow: 0 4px 4px 0 rgba(45, 51, 68, 0.2),
-    0 8px 8px 0 rgba(36, 42, 59, 0.2), 0 16px 16px 0 rgba(37, 44, 61, 0.2),
-    0 32px 32px 0 rgba(37, 44, 61, 0.2), 0 50px 50px 0 rgba(37, 44, 61, 0.2),
-    0 80px 80px 0 rgba(37, 44, 61, 0.2);
+  background-color: var( --color-wrapper);
+  box-shadow: var(--color-box-shadow);
 `;
 export const HeaderWrapper = styled.div`
 display: flex;
@@ -25,7 +22,7 @@ gap: 20px;
 `
 export const Header = styled.h1`
   font-size: 30px;
-  color: #ffffff;
+  color: var(--color-font-primary);
   text-align: center;
 `;
 
@@ -42,12 +39,12 @@ export const List = styled.div`
 `;
 export const CardInfo = styled(Card)`
   overflow: hidden;
-  background-color: #1e232f;
+  background-color: var(--color-bg-card);
   border: none;
-  box-shadow: rgba(17, 20, 27, 0.9) 0px 11px 11px -11px;
+  box-shadow: var(--color-card-box-shadow);
   transition: box-shadow 0.3s ease-in-out;
   &:hover {
-    box-shadow: rgba(17, 20, 27, 0.8) 0px 35px 30px -30px;
+    box-shadow: var(--color-card-box-shadow-hover);
   }
   .ant-card-body {
     padding: 0;
@@ -61,23 +58,23 @@ export const UserInfo = styled.div`
   padding: 10px 15px 0px;
 `;
 export const CustomAvatar = styled(Avatar)`
-  background-color: rgb(42, 102, 231);
+  background-color: var(--color-primary-avatar);
   .anticon {
     font-size: 14px;
-    color: rgb(231, 231, 231);
+    color: var(--color-avatar-icon);
   }
 `;
 
 export const Title = styled.h3`
   position: relative;
   padding: 12px 20px 10px;
-  border-bottom: 1px solid rgb(38, 46, 60);
+  border-bottom: 1px solid var(--color-title-border);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   font-size: 16px;
-  color: rgb(231, 231, 231);
-  background-color: #1e232f;
+  color: var(--color-font-name);
+  background-color: var(--color-title-bg);
   &::first-letter {
     text-transform: uppercase;
   }
@@ -85,7 +82,7 @@ export const Title = styled.h3`
 export const UserName = styled.p`
   font-size: 15px;
   font-weight: 600;
-  color: rgb(231, 231, 231);
+  color: var(--color-font-name);
 `;
 export const Content = styled.div`
   display: flex;
@@ -106,7 +103,7 @@ export const StyledImg = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(35, 41, 54);
+  background-color: var(--color-bg-media);
   border-radius: 6px;
 
   @media (max-width: 480px) {
@@ -119,7 +116,7 @@ export const Text = styled.div`
   flex: 1;
   padding-left: 16px;
   font-size: 12px;
-  color: rgb(222, 221, 221);
+  color: var(--color-font-description);
   text-align: left;
   &::first-letter {
     text-transform: uppercase;
@@ -135,34 +132,16 @@ export const InteractionButtons = styled.div`
   justify-content: flex-end;
 `;
 export const StyledButton = styled(Button)`
-  color: rgb(133, 137, 148);
+  color: var(--color-icon);
   background-color: transparent;
   &:hover {
-    color: #ffffff !important;
+    color: var(--color-font-primary)!important;
     background-color: transparent !important;
   }
   .anticon {
     font-size: 20px;
     &:hover {
-      color: #ffffff !important;
-    }
-  }
-  svg {
-    font-size: 20px;
-  }
-`;
-export const FavoriteButton = styled(Button)<{ $favorite?: boolean }>`
-  color: ${({ $favorite }) => ($favorite ? "#0067ff" : "#858994")} !important;
-  background-color: transparent;
-  &:hover {
-    color: ${({ $favorite }) => ($favorite ? "#217afd" : "#ffffff")} !important;
-    background-color: transparent !important;
-  }
-  .anticon {
-    font-size: 20px;
-    &:hover {
-      color: ${({ $favorite }) =>
-        $favorite ? "#217afd" : "#ffffff"} !important;
+      color: var(--color-font-primary)!important;
     }
   }
   svg {
@@ -177,22 +156,21 @@ export const ButtonBack = styled(Button)`
   width: fit-content;
   border-radius: 50%;
   border: none;
-  background-color: rgb(0, 84, 210);
-  color: #ffffff;
+  background-color: var(--color-primary);
+  color: var(--color-font-primary);
   &:hover {
-    background-color: #0067ff !important;
-    box-shadow: rgba(26, 59, 142, 0.19) 0px 10px 20px,
-      rgba(26, 59, 142, 0.23) 0px 6px 6px;
+    background-color: var(--color-primary) !important;
+    box-shadow: var(--color-btn-back-box-shadow);
   }
   .anticon {
     font-size: 25px;
-    color: #ffffff;
+    color: var(--color-font);
   }
 `;
 export const CustomModal = styled(Modal)`
+
   .ant-modal-content {
-    background-color: rgb(34, 40, 54) !important;
-    box-shadow: rgba(6, 6, 8, 0.75) 0px 54px 55px, rgba(6, 6, 8, 0.58) 0px -12px 30px, rgba(6, 6, 8, 0.4) 0px 4px 6px, rgba(6, 6, 8, 0.15) 0px 12px 13px, rgba(6, 6, 8, 0.1) 0px -3px 5px;
+    background-color: var(--color-bg-modal-primary) !important;
   }
   .ant-modal-header {
     background-color: transparent;
@@ -201,7 +179,7 @@ export const CustomModal = styled(Modal)`
   .ant-modal-title {
     background-color: transparent !important;
     text-align: center;
-    color: rgb(231, 231, 231);
+    color: var(--color-font-name);
   }
   .ant-modal-close {
     top: 16px;
@@ -209,15 +187,15 @@ export const CustomModal = styled(Modal)`
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: var(--color-bg-btn-modal-close);
     transition: background-color 0.3s ease;
     &:hover {
-      background-color: rgba(255, 255, 255, 0.1);
+      background-color: var(--color-bg-btn-modal-close-hover);
     }
   }
 
   .ant-modal-close-x {
-    color: white; 
+    color: var(--color-font-primary); 
     font-size: 15px;
     line-height: 32px;
   }
