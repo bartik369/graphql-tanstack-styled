@@ -1,4 +1,4 @@
-import type { Post } from "@/api/graphql/generated/hooks";
+import type { Post } from "@/api/graphql/generated/graphqlzero/types";
 import {
   UserOutlined,
   MessageOutlined,

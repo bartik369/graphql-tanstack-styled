@@ -193,3 +193,4 @@ export const CustomCheckbox = styled(Checkbox)`
   border-color: var(--color-primary) !important;
 }
 `;
+

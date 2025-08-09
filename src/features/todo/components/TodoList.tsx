@@ -9,7 +9,7 @@ import { TITLES } from "@/shared/constants/titles";
 import { MESSAGES } from "@/shared/constants/messages";
 import { PAGE_SIZE_OPTIONS } from "@/shared/constants/pagination";
 import { STATUS } from "../types/todo";
-import type { Todo } from "@/api/graphql/generated/hooks";
+import type { Todo } from "@/api/graphql/generated/graphqlzero/types";
 import { StyledToastContainer } from "@/shared/styles/ToastStyles";
 import * as S from "./Todo.styles";
 

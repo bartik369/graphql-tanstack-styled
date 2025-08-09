@@ -1,0 +1,18 @@
+query GetCountries {
+  countries {
+      awsRegion
+      capital
+      code
+      continent {
+        name
+        code
+      }
+      currency
+      emojiU
+      languages {
+        name
+      }
+      native
+      phone
+    }
+}

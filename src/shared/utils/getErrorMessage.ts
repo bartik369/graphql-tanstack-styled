@@ -1,7 +1,12 @@
 export type UnknownError = unknown;
 
 type GraphQLError = {
-    graphQLErrors?: { message: string } [];
+    graphQLErrors?: { 
+      message: string;
+      extensions?: {
+        message?: string;
+      }
+    } [];
 }
 type AxiosError = {
     response?:{
@@ -30,7 +35,12 @@ function isAxiosError(error: UnknownError): error is AxiosError {
 }
 export function getErrorMessage(error: UnknownError): string {
     if (isGraphQLError(error)) {
-      return error.graphQLErrors?.[0]?.message || "Unknown GraphQL error";
+      const gqlError = error.graphQLErrors?.[0];
+      return (
+        gqlError?.extensions?.message ||
+        gqlError?.message  ||
+        "Unknown GraphQL error"
+      )
     }
   
     if (isAxiosError(error)) {

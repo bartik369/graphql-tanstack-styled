@@ -6,9 +6,12 @@ import {
   useDeleteTodoMutation,
   useUpdateTodoMutation,
   useGetTodosQuery,
-} from "../graphql/generated/hooks";
+} from "../graphql/generated/graphqlzero/hooks";
 import { queryClient } from "@/lib/queryClient";
-import type { GetTodosQuery, Todo } from "../graphql/generated/graphql";
+import type {
+  GetTodosQuery,
+  Todo,
+} from "../graphql/generated/graphqlzero/types";
 import {
   initialTodoState,
   todoReducer,
@@ -16,8 +19,9 @@ import {
 import { TodoActionTypes } from "@/features/todo/model/TodoTypes";
 import { TOAST_MESSAGES } from "@/features/todo/constants/toastMessages";
 import { getErrorMessage } from "@/shared/utils/getErrorMessage";
-import { OperatorKindEnum } from "../graphql/generated/graphql";
+import { OperatorKindEnum } from "../graphql/generated/graphqlzero/types";
 import { STATUS, type Status } from "@/features/todo/types/todo";
+import { TIME } from "@/shared/constants/time";
 
 export function useTodos() {
   const [state, dispatch] = useReducer(todoReducer, initialTodoState);
@@ -38,12 +42,15 @@ export function useTodos() {
         ],
       }),
     },
+  }, {
+    staleTime: TIME.MINUTE,
+    enabled: true,
   });
   const dataKey = useMemo(
-    () => [
-      "GetTodos",
-      { options: { paginate: { page: state.page, limit: state.pageSize } } },
-    ],
+    () =>
+      useGetTodosQuery.getKey({
+        options: { paginate: { page: state.page, limit: state.pageSize } },
+      }),
     [state.page, state.pageSize]
   );
 

@@ -1,4 +1,4 @@
-import type { Post } from "@/api/graphql/generated/graphql";
+import type { Post } from "@/api/graphql/generated/graphqlzero/types";
 
 export type PostActions<T> = {
     submit: (values: Partial<T>) => void;

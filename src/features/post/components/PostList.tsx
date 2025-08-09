@@ -5,7 +5,7 @@ import Pagination from "@/components/ui/pagination/Pagination";
 import CommentItem from "@/features/post/components/CommentItem";
 import DynamicForm from "@/shared/components/forms/dynamic/DynamicForm";
 import { usePosts } from "@/api/hooks/usePosts";
-import type { Post } from "@/api/graphql/generated/hooks";
+import type { Post } from "@/api/graphql/generated/graphqlzero/types";
 import { PAGE_SIZE_OPTIONS } from "@/shared/constants/pagination";
 import { MESSAGES } from "@/shared/constants/messages";
 import { TITLES } from "@/shared/constants/titles";

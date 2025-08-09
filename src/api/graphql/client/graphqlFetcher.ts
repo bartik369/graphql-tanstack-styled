@@ -1,4 +1,3 @@
-
 export const graphqlFetcher = <TData, TVariables>(
   query: string,
   variables?: TVariables
@@ -21,4 +20,3 @@ export const graphqlFetcher = <TData, TVariables>(
 };
 
 export type Fetcher = typeof graphqlFetcher;
-

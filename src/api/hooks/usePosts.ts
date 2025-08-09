@@ -1,12 +1,12 @@
 import { useCallback, useMemo, useReducer } from "react";
 import { toast } from "react-toastify";
-import {
-  useGetPostsQuery,
-  useGetCommentsByIdQuery,
+import { 
+  useGetPostsQuery, 
+  useGetCommentsByIdQuery, 
   useUpdatePostMutation,
-  type GetPostsQuery,
   useDeletePostMutation,
-} from "../graphql/generated/hooks";
+ } from "../graphql/generated/graphqlzero/hooks";
+import type { GetPostsQuery, Post } from "../graphql/generated/graphqlzero/types";
 import { useModal } from "@/shared/hooks/useModal";
 import {
   initialPostState,
@@ -14,31 +14,42 @@ import {
 } from "@/features/post/model/PostReducer";
 import { PostActionTypes } from "@/features/post/model/PostTypes";
 import { queryClient } from "@/lib/queryClient";
-import type { Post } from "../graphql/generated/graphql";
 import { getErrorMessage } from "@/shared/utils/getErrorMessage";
 import { TOAST_MESSAGES } from "@/features/todo/constants/toastMessages";
+import { TIME } from "@/shared/constants/time";
 
 export function usePosts() {
   const [state, dispatch] = useReducer(postReducer, initialPostState);
-  const { data, isLoading: isLoadingPosts, error: fetchPostErrors } = useGetPostsQuery({
-    options: {
-      paginate: { page: state.page, limit: 10 },
+  const {
+    data,
+    isLoading: isLoadingPosts,
+    error: fetchPostErrors,
+  } = useGetPostsQuery(
+    {
+      options: {
+        paginate: { page: state.page, limit: 10 },
+      },
     },
-  });
+    {
+      staleTime: TIME.MINUTE,
+      enabled: true,
+      refetchOnWindowFocus: true,
+    }
+  );
   const { isOpen, openModal, closeModal } = useModal();
 
   const dataKey = useMemo(
-    () => [
-      "GetPosts",
-      { options: { paginate: { page: state.page, limit: state.pageSize } } },
-    ],
+    () => useGetPostsQuery.getKey({ options: { paginate: { page: state.page, limit: state.pageSize } } }),
     [state.page, state.pageSize]
   );
 
   const { data: commentsData, isLoading: isLoadingComments, error: fetchCommentsErrors } =
     useGetCommentsByIdQuery(
       { postId: state.fetchedPostId },
-      { enabled: !!state.fetchedPostId }
+      { 
+        staleTime: TIME.MINUTE,
+        enabled: !!state.fetchedPostId 
+      }
     );
 
   const updatePostMutation = useUpdatePostMutation({

@@ -1,4 +1,4 @@
-import type { Post } from "@/api/graphql/generated/hooks";
+import type  { Post } from "@/api/graphql/generated/graphqlzero/types";
 
 export interface PostState {
     post: {
@@ -10,7 +10,7 @@ export interface PostState {
     page: number;
     fetchedPostId: string;
     fetched: boolean;
-    likes: Record<string, number>
+    likes: Map<string, number>;
     isUpdate: boolean;
     mutationError: string | null;
 }
