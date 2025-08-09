@@ -1,14 +1,17 @@
-import type { Comment } from "@/api/graphql/generated/graphql";
+import type { Comment } from "@/api/graphql/generated/graphqlzero/types";
 import { HeartOutlined, HeartFilled, UserOutlined } from "@ant-design/icons";
 import type { PostActionsBase } from "../types/post";
 import * as S from "./Comment.styles";
 
 interface CommentProps {
-  likes: Record<string, number>;
+  likes: Map<string, number>;
   comment: Comment;
   actions: PostActionsBase;
 }
 const CommentItem = ({ comment, actions, likes }: CommentProps) => {
+  const likedCount = likes.get(comment.id || '') || 0;
+  const isLiked = likedCount > 0;
+
   return (
     <S.StyledCard>
       <S.GroupedUserInfo>
@@ -22,12 +25,12 @@ const CommentItem = ({ comment, actions, likes }: CommentProps) => {
       <S.ButtonsGroup>
         <S.FavoriteButton
           onClick={() => actions.handleLike(comment.id || "")}
-          $favorite={likes[comment.id!] > 0}
+          $favorite={isLiked}
           type="text"
-          icon={likes[comment.id!] > 0 ? <HeartFilled /> : <HeartOutlined />}
+          icon={isLiked ? <HeartFilled /> : <HeartOutlined />}
         >
           <S.Count>
-            {likes[comment.id!] > 0 ? likes[comment.id!] : null}
+            {isLiked ? likedCount : null}
           </S.Count>
         </S.FavoriteButton>
       </S.ButtonsGroup>

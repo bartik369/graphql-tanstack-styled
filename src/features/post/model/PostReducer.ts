@@ -10,7 +10,7 @@ export const initialPostState: PostState = {
   page: 1,
   fetchedPostId: "",
   fetched: false,
-  likes: {},
+  likes: new Map<string, number>(),
   isUpdate: false,
   mutationError: null,
 };
@@ -47,14 +47,13 @@ export function postReducer(state: PostState, action: PostAction): PostState {
       return { ...state, fetched: false };
     case PostActionTypes.INCREMENT_LIKE: {
       const commentId = action.payload;
-      const currentLike = state.likes[commentId] || 0;
-      const isLiked = currentLike > 0;
+      const currentLike = state.likes.get(commentId) ?? 0;
       return {
         ...state,
-        likes: {
-          ...state.likes,
-          [commentId]: isLiked ? currentLike - 1 : currentLike + 1,
-        },
+        likes: new Map(state.likes).set(
+          commentId,
+          currentLike > 0 ? currentLike - 1 : currentLike + 1
+         ),
       };
     }
     case PostActionTypes.SET_IS_UPDATE:

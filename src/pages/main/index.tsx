@@ -1,7 +1,7 @@
 import Main from '@/components/pages/main/Main';
 import PageLayout from '@/shared/layouts/page-layout';
 
-const TodoPage = () => {
+const MainPage = () => {
     return (
         <>
         <PageLayout>
@@ -11,4 +11,4 @@ const TodoPage = () => {
     );
 };
 
-export default TodoPage;
+export default MainPage;

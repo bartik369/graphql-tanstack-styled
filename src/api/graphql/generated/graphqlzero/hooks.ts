@@ -1,6 +1,5 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import type { UseMutationOptions, UseQueryOptions } from '@tanstack/react-query';
-import { graphqlFetcher } from '../client/graphqlFetcher';
+import { useMutation, useQuery, type UseMutationOptions, type UseQueryOptions } from '@tanstack/react-query';
+import { graphqlFetcher } from '@/api/graphql/client/graphqlFetcher';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
@@ -746,6 +745,8 @@ export const useGetCommentsByIdQuery = <
   }
     )};
 
+useGetCommentsByIdQuery.getKey = (variables: GetCommentsByIdQueryVariables) => ['GetCommentsById', variables];
+
 export const GetPostsDocument = `
     query GetPosts($options: PageQueryOptions) {
   posts(options: $options) {
@@ -787,6 +788,8 @@ export const useGetPostsQuery = <
   }
     )};
 
+useGetPostsQuery.getKey = (variables?: GetPostsQueryVariables) => variables === undefined ? ['GetPosts'] : ['GetPosts', variables];
+
 export const GetTodosDocument = `
     query GetTodos($options: PageQueryOptions) {
   todos(options: $options) {
@@ -817,3 +820,5 @@ export const useGetTodosQuery = <
     ...options
   }
     )};
+
+useGetTodosQuery.getKey = (variables?: GetTodosQueryVariables) => variables === undefined ? ['GetTodos'] : ['GetTodos', variables];

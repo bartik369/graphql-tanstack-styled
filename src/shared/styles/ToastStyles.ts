@@ -25,10 +25,10 @@ export const StyledToastContainer = styled(ToastContainer)`
     background: var(--color-progress-success) !important;
   }
   .Toastify__close-button--light {
-    color: #ffffff;
+    color: var(--color-font-name) !important;
   }
   .Toastify__toast--success .Toastify__toast-icon svg {
-    color: var(--color-progress-success) !important; /* или конкретный цвет */
+    color: var(--color-progress-success) !important;
     fill: var(--color-progress-success) !important;
   }
 
