@@ -9,16 +9,16 @@ import { queryClient } from "./lib/queryClient";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import LocalFallback from "./shared/components/ui/error/LocalFallback";
 
-// const redirectPath = sessionStorage.redirect;
-// if (redirectPath) {
-//   sessionStorage.removeItem("redirect");
-//   window.history.replaceState(null, '', redirectPath);
-// }
+const redirectPath = sessionStorage.redirect;
+if (redirectPath) {
+  sessionStorage.removeItem("redirect");
+  window.history.replaceState(null, '', redirectPath);
+}
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    {/* <BrowserRouter basename="/graphql-tanstack-styled"> */}
-    <BrowserRouter>
+    <BrowserRouter basename="/graphql-tanstack-styled">
+    {/* <BrowserRouter> */}
       <QueryClientProvider client={queryClient}>
         <ErrorBoundary FallbackComponent={LocalFallback}>
           <App />

@@ -1,4 +1,4 @@
-export const graphqlFetcher = (query, variables) => {
+export const graphqlFetcher = (query, variables, signal) => {
     return async () => {
         const entries = Object.entries(variables ?? {});
         const fileEntries = entries.filter(([, value]) => value instanceof File);
@@ -16,6 +16,7 @@ export const graphqlFetcher = (query, variables) => {
                 method: 'POST',
                 // credentials: 'include', включить  если есть авторизация
                 body: formData,
+                signal,
             });
             return handleResponse(res);
         }
@@ -25,6 +26,7 @@ export const graphqlFetcher = (query, variables) => {
             headers: { 'Content-Type': 'application/json' },
             // credentials: 'include', включить  если есть авторизация
             body: JSON.stringify({ query, variables }),
+            signal,
         });
         return handleResponse(res);
     };
