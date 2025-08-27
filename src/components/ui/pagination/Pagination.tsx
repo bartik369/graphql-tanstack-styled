@@ -1,10 +1,13 @@
 import type { PaginationProps } from "antd";
 import * as S from "./Pagination.styles";
 
-const Pagination = (props: PaginationProps) => {
+type CustomPaginationProps = PaginationProps & {
+  isPlaceholderData?: boolean;
+}
+const Pagination = ({ isPlaceholderData, ...props} : CustomPaginationProps) => {
   return (
     <S.PaginationWrapper>
-      <S.StyledPagination {...props} />
+      <S.StyledPagination {...props} disabled={isPlaceholderData || props.disabled} />
     </S.PaginationWrapper>
   );
 };

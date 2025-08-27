@@ -14,7 +14,7 @@ import { StyledToastContainer } from "@/shared/styles/ToastStyles";
 import * as S from "./Todo.styles";
 
 const TodoList = () => {
-  const { state, actions, setters } = useTodos();
+  const { state, actions, setters,  } = useTodos();
   return (
     <S.Wrapper>
       <StyledToastContainer position="top-center" />
@@ -66,6 +66,7 @@ const TodoList = () => {
         current={state.page}
         total={state.totalCount ?? 0}
         pageSizeOptions={PAGE_SIZE_OPTIONS}
+        isPlaceholderData={state.isPlaceholderData}
         onChange={(page, pageSize) => {
           setters.setPage(page);
           setters.setPageSize(pageSize);

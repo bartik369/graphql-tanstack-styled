@@ -18,6 +18,7 @@ const config: CodegenConfig = {
       ],
   
       config: {
+        // fetcher: "@/api/graphql/client/graphqlFetcherWithSignal#graphqlFetcherWithSignal",
         fetcher: "@/api/graphql/client/graphqlFetcher#graphqlFetcher",
         reactQueryVersion: 'v5',
         legacyMode: false,
