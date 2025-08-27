@@ -61,6 +61,7 @@ export type CountryFilterInput = {
 export type Language = {
   __typename?: 'Language';
   code: Scalars['ID']['output'];
+  countries: Array<Country>;
   name: Scalars['String']['output'];
   native: Scalars['String']['output'];
   rtl: Scalars['Boolean']['output'];

@@ -14,7 +14,7 @@ import {
 } from "@/features/post/model/PostReducer";
 import { PostActionTypes } from "@/features/post/model/PostTypes";
 import { queryClient } from "@/lib/queryClient";
-import { getErrorMessage } from "@/shared/utils/getErrorMessage";
+import { errorHandler } from "@/shared/utils/errorHandler";
 import { TOAST_MESSAGES } from "@/features/todo/constants/toastMessages";
 import { TIME } from "@/shared/constants/time";
 
@@ -111,7 +111,7 @@ export function usePosts() {
       return { previousPosts: previousData?.posts?.data ?? [] };
     },
     onError: async (err, _variables, context) => {
-      toast.error(getErrorMessage(err));
+      toast.error(errorHandler(err).userMessage);
       dispatch({
         type: PostActionTypes.SET_ERROR,
         payload: (err as Error).message,
@@ -125,9 +125,9 @@ export function usePosts() {
     onSuccess: async () => {
       toast.success(TOAST_MESSAGES.deletedPost);
     },
-    // onSettled: async() => {
-    //   queryClient.invalidateQueries({ queryKey: dataKey });
-    // }
+    onSettled: async() => {
+      queryClient.invalidateQueries({ queryKey: dataKey });
+    }
   });
 
   const handleRefetchComments = (id: string) => {

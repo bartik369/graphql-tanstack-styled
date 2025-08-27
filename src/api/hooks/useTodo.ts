@@ -18,10 +18,11 @@ import {
 } from "@/features/todo/model/TodoReducer";
 import { TodoActionTypes } from "@/features/todo/model/TodoTypes";
 import { TOAST_MESSAGES } from "@/features/todo/constants/toastMessages";
-import { getErrorMessage } from "@/shared/utils/getErrorMessage";
+import { errorHandler } from "@/shared/utils/errorHandler";
 import { OperatorKindEnum } from "../graphql/generated/graphqlzero/types";
 import { STATUS, type Status } from "@/features/todo/types/todo";
 import { TIME } from "@/shared/constants/time";
+import { keepPreviousData } from "@tanstack/react-query";
 
 export function useTodos() {
   const [state, dispatch] = useReducer(todoReducer, initialTodoState);
@@ -29,6 +30,7 @@ export function useTodos() {
     data,
     isLoading,
     error: fetchError,
+    isPlaceholderData,
   } = useGetTodosQuery({
     options: {
       paginate: { page: state.page, limit: state.pageSize },
@@ -45,6 +47,7 @@ export function useTodos() {
   }, {
     staleTime: TIME.MINUTE,
     enabled: true,
+    placeholderData: keepPreviousData,
   });
   const dataKey = useMemo(
     () =>
@@ -121,7 +124,7 @@ export function useTodos() {
         type: TodoActionTypes.SET_ERROR,
         payload: (err as Error).message,
       });
-      toast.error(getErrorMessage(err));
+      toast.error(errorHandler(err).userMessage || 'Произошла ошибка');
       if (context?.previousTodos) {
         queryClient.setQueryData(dataKey, {
           todos: context.previousTodos,
@@ -154,7 +157,7 @@ export function useTodos() {
       return { previousTodos: previousData?.todos?.data ?? [] };
     },
     onError: (err, _variables, context) => {
-      toast.error(getErrorMessage(err));
+      toast.error(errorHandler(err).userMessage || 'Произошла ошибка');
       dispatch({
         type: TodoActionTypes.SET_ERROR,
         payload: (err as Error).message,
@@ -168,9 +171,9 @@ export function useTodos() {
     onSuccess: () => {
       toast.success(TOAST_MESSAGES.deletedTodo);
     },
-    // onSettled: () => {
-    //   queryClient.invalidateQueries({ queryKey: dataKey });
-    // },
+    onSettled: () => {
+      queryClient.invalidateQueries({ queryKey: dataKey });
+    },
   });
 
   const createTodo = useCallback(async () => {
@@ -221,6 +224,7 @@ export function useTodos() {
       mutationError: state.mutationError,
       isLoading,
       fetchError,
+      isPlaceholderData,
     },
     actions: {
       createTodo,
