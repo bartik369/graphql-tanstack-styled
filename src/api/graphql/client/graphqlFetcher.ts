@@ -1,6 +1,7 @@
 export const graphqlFetcher = <TData, TVariables>(
   query: string,
-  variables?: TVariables
+  variables?: TVariables,
+  signal?: AbortSignal
 ) => {
   return async (): Promise<TData> => {
     const entries = Object.entries(variables ?? {});
@@ -28,6 +29,7 @@ export const graphqlFetcher = <TData, TVariables>(
         method: 'POST',
         // credentials: 'include', включить  если есть авторизация
         body: formData,
+        signal,
       });
       return handleResponse<TData>(res);
     }
@@ -38,6 +40,7 @@ export const graphqlFetcher = <TData, TVariables>(
       headers: { 'Content-Type': 'application/json' },
       // credentials: 'include', включить  если есть авторизация
       body: JSON.stringify({ query, variables }),
+      signal,
     });
     return handleResponse<TData>(res);
   };

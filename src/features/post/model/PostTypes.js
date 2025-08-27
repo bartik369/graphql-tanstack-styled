@@ -1,0 +1,22 @@
+export var PostActionTypes;
+(function (PostActionTypes) {
+    PostActionTypes["SET_ERROR"] = "SET_ERROR";
+    PostActionTypes["RESET_ERROR"] = "RESET_ERROR";
+    PostActionTypes["SET_POST"] = "SET_POST";
+    PostActionTypes["UPDATE_POST"] = "UPDATE_POST";
+    PostActionTypes["DELETE_POST"] = "DELETE_POST";
+    PostActionTypes["RESET_POST"] = "RESET_POST";
+    PostActionTypes["SET_FETCHED_POST"] = "SET_FETCHED_POST";
+    PostActionTypes["RESET_FETCHED_POST"] = "RESET_FETCHED_POST";
+    PostActionTypes["SET_FETCHED"] = "SET_FETCHED";
+    PostActionTypes["RESET_FETCHED"] = "RESET_FETCHED";
+    PostActionTypes["ADD_COMMENT"] = "ADD_COMMENT";
+    PostActionTypes["UPDATE_COMMENT"] = "UPDATE_COMMENT";
+    PostActionTypes["DELETE_COMMENT"] = "DELETE_COMMENT";
+    PostActionTypes["INCREMENT_LIKE"] = "INCREMENT_LIKE";
+    PostActionTypes["DECREMENT_LIKE"] = "DECREMENT_LIKE";
+    PostActionTypes["SET_LIKES"] = "SET_LIKES";
+    PostActionTypes["SET_IS_UPDATE"] = "SET_IS_UPDATE";
+    PostActionTypes["RESET_IS_UPDATE"] = "RESET_IS_UPDATE";
+    PostActionTypes["SET_PAGE"] = "SET_PAGE";
+})(PostActionTypes || (PostActionTypes = {}));

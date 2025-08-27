@@ -41,22 +41,22 @@ export type FetchError = {
 export type CommonError = {
   userMessage: string; // UI сообщение ошибки(модалка)
   devMessage?: string; // Ошибка для логов
-  type: 'GRAPHQL' | 'AXIOS' | 'NETWORK' | 'FETCH' | 'UNKNOWN'; // Тип ошибки
+  type: "GRAPHQL" | "AXIOS" | "NETWORK" | "FETCH" | "UNKNOWN"; // Тип ошибки
   code?: string; // Код ошибки для бизнес-логики
   originalError: unknown; // Оригинальный объект ошибкт(не для UI)
 };
 
 export function isGraphQLError(error: unknown): error is GraphQLError {
   return (
-    typeof error === 'object' &&
+    typeof error === "object" &&
     error != null &&
-    'graphQLErrors' in error &&
+    "graphQLErrors" in error &&
     Array.isArray((error as any).graphQLErrors)
   );
 }
 export function isAxiosError(error: unknown): error is AxiosError {
   return (
-    typeof error === 'object' &&
+    typeof error === "object" &&
     error != null &&
     ((error as AxiosError).isAxiosError === true ||
       (error as AxiosError).response != null)
@@ -65,18 +65,18 @@ export function isAxiosError(error: unknown): error is AxiosError {
 
 export function isFetchError(error: unknown): error is FetchError {
   return (
-    typeof error === 'object' &&
+    typeof error === "object" &&
     error != null &&
-    ('response' in (error as any) || 'name' in (error as any))
+    ("response" in (error as any) || "name" in (error as any))
   );
 }
 
 export function mapHttpStatusToMessage(status?: number): string {
-  if (!status) return 'Произошла ошибка';
-  if (status === 401) return 'Неверные учетные данные';
-  if (status === 403) return 'Доступ запрещен';
-  if (status >= 500) return 'Сервис временно недоступен. Уже устраняем ошибку.';
-  return 'Произошла ошибка';
+  if (!status) return "Произошла ошибка";
+  if (status === 401) return "Неверные учетные данные";
+  if (status === 403) return "Доступ запрещен";
+  if (status >= 500) return "Сервис временно недоступен. Уже устраняем ошибку.";
+  return "Произошла ошибка";
 }
 
 export function errorHandler(error: unknown): CommonError {
@@ -87,31 +87,32 @@ export function errorHandler(error: unknown): CommonError {
       gqlError?.extensions?.message || gqlError?.message || error.message;
 
     return {
-      userMessage: '',
-      devMessage: devMessage || 'Unknown GraphQL error',
-      type: 'GRAPHQL',
+      userMessage: "",
+      devMessage: devMessage || "Unknown GraphQL error",
+      type: "GRAPHQL",
       code: errorCode,
       originalError: error,
     };
   }
   if (isFetchError(error)) {
     const status = error.response?.status;
-
+    // Если статуса нет,  то ошибка с сетью, либо бэк упал
     if (!status) {
       return {
-        userMessage: 'Проблемы с сетью.',
-        devMessage: error.message || 'Network or aborted error',
-        type: 'NETWORK',
+        userMessage: "Проблемы с сетью.",
+        devMessage: error.message || "Network or aborted error",
+        type: "NETWORK",
         originalError: error,
       };
     }
+    // Если status.ok
     return {
       userMessage: mapHttpStatusToMessage(status),
       devMessage:
         error.response?.body?.message ||
         error.response?.statusText ||
         error.message,
-      type: 'FETCH',
+      type: "FETCH",
       code: `HTTP_${status}`,
       originalError: error,
     };
@@ -120,11 +121,11 @@ export function errorHandler(error: unknown): CommonError {
   if (isAxiosError(error)) {
     const status = error.response?.status;
 
-    if (error.code === 'ERR_NETWORK' || !error.response) {
+    if (error.code === "ERR_NETWORK" || !error.response) {
       return {
-        userMessage: 'Проблемы с сетью.',
+        userMessage: "Проблемы с сетью.",
         devMessage: error.message,
-        type: 'NETWORK',
+        type: "NETWORK",
         originalError: error,
       };
     }
@@ -134,7 +135,7 @@ export function errorHandler(error: unknown): CommonError {
     return {
       userMessage: mapHttpStatusToMessage(status),
       devMessage: serverMessage || error.message,
-      type: 'AXIOS',
+      type: "AXIOS",
       code: error.response.data?.code || `HTTP_${status}`,
       originalError: error,
     };
@@ -142,16 +143,16 @@ export function errorHandler(error: unknown): CommonError {
 
   if (error instanceof Error) {
     return {
-      userMessage: 'Произошла неизвестная ошибка',
+      userMessage: "Произошла неизвестная ошибка",
       devMessage: error.message,
-      type: 'UNKNOWN',
+      type: "UNKNOWN",
       originalError: error,
     };
   }
 
   return {
-    userMessage: '',
-    type: 'UNKNOWN',
+    userMessage: "",
+    type: "UNKNOWN",
     originalError: error,
   };
 }

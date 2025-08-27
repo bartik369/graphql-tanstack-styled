@@ -1,13 +1,13 @@
 import "@ant-design/v5-patch-for-react-19";
-import App from "./App.tsx";
+import App from "./App";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ErrorBoundary } from "react-error-boundary";
 import { BrowserRouter } from "react-router-dom";
 import { QueryClientProvider } from "@tanstack/react-query";
-import { queryClient } from "./lib/queryClient.ts";
+import { queryClient } from "./lib/queryClient";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import LocalFallback from "./shared/components/ui/error/LocalFallback.tsx";
+import LocalFallback from "./shared/components/ui/error/LocalFallback";
 
 const redirectPath = sessionStorage.redirect;
 if (redirectPath) {
